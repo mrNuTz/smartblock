@@ -2,9 +2,9 @@ import { Schema } from 'prosemirror-model';
 import { Extension, ExtensionProps } from '../types';
 export default class ListItem extends Extension {
     constructor(props?: ExtensionProps);
-    readonly name: string;
-    readonly showMenu: boolean;
-    readonly schema: import("../types").ExtensionSchema | {
+    get name(): string;
+    get showMenu(): boolean;
+    get schema(): import("../types").ExtensionSchema | {
         content: string;
         group: string;
         parseDOM: {
@@ -24,6 +24,6 @@ export default class ListItem extends Extension {
     keys(schema: Schema): {
         Enter: (state: import("prosemirror-state").EditorState<Schema<any, any>>, dispatch?: (tr: import("prosemirror-state").Transaction<Schema<any, any>>) => void) => boolean;
         Tab: (state: import("prosemirror-state").EditorState<Schema<any, any>>, dispatch?: (tr: import("prosemirror-state").Transaction<Schema<any, any>>) => void) => boolean;
-        'Shift-Tab': (p1: import("prosemirror-state").EditorState<any>, p2?: (tr: import("prosemirror-state").Transaction<any>) => void, p3?: import("prosemirror-view").EditorView<any>) => boolean;
+        'Shift-Tab': import("prosemirror-commands").Command<any>;
     };
 }

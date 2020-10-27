@@ -2,10 +2,10 @@
 import { Extension, ExtensionProps } from '../types';
 export default class BulletList extends Extension {
     constructor(props?: ExtensionProps);
-    readonly name: string;
-    readonly group: string;
-    readonly showMenu: boolean;
-    readonly schema: {
+    get name(): string;
+    get group(): string;
+    get showMenu(): boolean;
+    get schema(): {
         content: string;
         group: string;
         parseDOM: {
@@ -23,8 +23,8 @@ export default class BulletList extends Extension {
             class: any;
         })[];
     };
-    readonly icon: JSX.Element;
-    readonly hideBlockMenuOnFocus: boolean;
+    get icon(): JSX.Element;
+    get hideBlockMenuOnFocus(): boolean;
     active(state: any): boolean;
     enable(state: any): boolean;
     onClick(state: any, dispatch: any): boolean;
