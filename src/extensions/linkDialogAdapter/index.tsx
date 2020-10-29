@@ -21,7 +21,9 @@ export default class LinkDialogAdapter extends Extension {
     super(props);
 
     this._openDialog = props.openDialog;
-    this._attributes = props.attributes;
+    this._attributes = props.attributes.includes('href')
+      ? props.attributes
+      : props.attributes.concat('href');
   }
 
   get name() {
@@ -46,7 +48,7 @@ export default class LinkDialogAdapter extends Extension {
       attrs: {
         editing: { default: true },
         ...(this._attributes.reduce((attrs, attr) => {
-          attrs[attr] = { default: null }
+          attrs[attr] = { default: attr === 'href' ? '' : null }
           return attrs
         }, {}))
       },
