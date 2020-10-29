@@ -80,6 +80,12 @@ const calculatePos = (
   return 20;
 }
 
+const filterAttrs = attrs => Object.entries(attrs).reduce((res, [k, v]) => {
+  if (v && k !== 'editing')
+    res[k] = v;
+  return res;
+}, {});
+
 const TooltipComponent = (props: { view: EditorView; attributes: string[]; openDialog: OpenDialogFn }) => {
   const { view, openDialog } = props;
   const container = useRef<HTMLDivElement>(null);
@@ -98,7 +104,7 @@ const TooltipComponent = (props: { view: EditorView; attributes: string[]; openD
   }
   let attrs = {};
   if (link) {
-    attrs = link.attrs;
+    attrs = filterAttrs(link.attrs)
     editing = link.attrs.editing;
   }
   let beforePos = selection.from;
@@ -131,6 +137,12 @@ const TooltipComponent = (props: { view: EditorView; attributes: string[]; openD
     }
     view.dispatch(tr);
   }
+  const onEdit = () => openDialog(onOk, onCancel, attrs)
+  const onDel = () => {
+    const { tr } = view.state;
+    tr.removeMark(beforePos, afterPos, view.state.schema.marks.link);
+    view.dispatch(tr);
+  }
 
   return (
     <div
@@ -143,14 +155,7 @@ const TooltipComponent = (props: { view: EditorView; attributes: string[]; openD
         style={{ left: `${arrowPos}px` }}
       />
       { editing &&
-        <TooltipReact
-          onDel={() => {
-            const { tr } = view.state;
-            tr.removeMark(beforePos, afterPos, view.state.schema.marks.link);
-            view.dispatch(tr);
-          }}
-          onEdit={() => openDialog(onOk, onCancel, attrs)}
-        />
+        <TooltipReact onDel={onDel} onEdit={onEdit} />
       }
     </div>
   )
