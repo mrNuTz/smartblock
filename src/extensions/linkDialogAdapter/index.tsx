@@ -46,7 +46,7 @@ export default class LinkDialogAdapter extends Extension {
       attrs: {
         editing: { default: true },
         ...(this._attributes.reduce((attrs, attr) => {
-          attrs[attr] = { default: '' }
+          attrs[attr] = { default: null }
           return attrs
         }, {}))
       },
