@@ -11,7 +11,7 @@
   cursor: pointer;
   text-align: center;
   border: 1px solid transparent;
-  
+
   svg {
     fill: currentColor;
     vertical-align: middle;
@@ -22,7 +22,7 @@
   &:not([disabled]):hover {
     color: #005CEE;
   }
-  
+
   &[disabled]:hover {
     cursor: not-allowed;
   }
@@ -37,7 +37,7 @@
     color: #005CEE;
     opacity: 1;
     background-color: #F2F2F4;
-    
+
     &:focus {
       outline: 0;
       color: #005CEE;
@@ -46,7 +46,7 @@
   }
   &:not(.is-active) {
     color: #777;
-    
+
     &:focus {
       outline: 0;
       color: #777;
@@ -120,7 +120,7 @@
   }
   background-color: transparent;
   color: #666;
-  
+
   &:hover {
     color: #111;
   }
@@ -357,6 +357,11 @@
   color: #fff;
   font-size: 16px;
   cursor: pointer;
+}
+
+.smartblock-link-dialog-tooltip {
+  @extend .smartblock-tooltip;
+  width: 92px;
 }
 
 .ProseMirror {

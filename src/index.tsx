@@ -21,6 +21,7 @@ import { Dispatch, Extension } from './types'
 
 // extensions
 import Link from './extensions/link'
+import LinkDialogAdapter from './extensions/linkDialogAdapter'
 import Image from './extensions/image'
 import BulletList from './extensions/bullet-list'
 import CustomBlock from './extensions/custom-block'
@@ -66,12 +67,13 @@ export {
   Editor,
   InlineMenu,
   Menu,
-  /* 
-    extensions 
+  /*
+    extensions
   */
   /* blocks */
   Extensions,
   Link,
+  LinkDialogAdapter,
   Image,
   BulletList,
   CustomBlock,

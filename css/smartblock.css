@@ -258,7 +258,7 @@
   border-width: 0 12px 12px 12px;
   border-color: transparent transparent #ffffff transparent; }
 
-.smartblock-tooltip {
+.smartblock-tooltip, .smartblock-link-dialog-tooltip {
   color: #777;
   font-size: 16px;
   box-shadow: 0 3px 40px 8px rgba(116, 116, 116, 0.2);
@@ -289,6 +289,9 @@
   color: #fff;
   font-size: 16px;
   cursor: pointer; }
+
+.smartblock-link-dialog-tooltip {
+  width: 92px; }
 
 .ProseMirror {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴシック", "メイリオ", Meiryo, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
