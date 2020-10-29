@@ -77,7 +77,6 @@ export default class LinkDialogAdapter extends Extension {
   }
 
   active(state) {
-    console.log(state)
     return markActive(state.schema.marks.link)(state)
   }
 
