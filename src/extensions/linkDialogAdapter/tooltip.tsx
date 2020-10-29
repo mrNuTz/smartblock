@@ -109,13 +109,13 @@ const TooltipComponent = (props: { view: EditorView; attributes: string[]; openD
   }
   const arrowPos = calculatePos(view);
 
-  const onOk = (link) => {
+  const onOk = (attrs) => {
     const { tr } = view.state;
     tr.removeMark(beforePos, afterPos, view.state.schema.marks.link);
     tr.addMark(
       beforePos,
       afterPos,
-      view.state.schema.marks.link.create({ ...link, editing: false })
+      view.state.schema.marks.link.create({ ...attrs, editing: false })
     );
     view.dispatch(tr);
   }
@@ -126,7 +126,7 @@ const TooltipComponent = (props: { view: EditorView; attributes: string[]; openD
       tr.addMark(
         beforePos,
         afterPos,
-        view.state.schema.marks.link.create({ ...link, editing: false })
+        view.state.schema.marks.link.create({ ...attrs, editing: false })
       );
     }
     view.dispatch(tr);
@@ -149,7 +149,7 @@ const TooltipComponent = (props: { view: EditorView; attributes: string[]; openD
             tr.removeMark(beforePos, afterPos, view.state.schema.marks.link);
             view.dispatch(tr);
           }}
-          onEdit={() => openDialog(onOk, onCancel)}
+          onEdit={() => openDialog(onOk, onCancel, attrs)}
         />
       }
     </div>

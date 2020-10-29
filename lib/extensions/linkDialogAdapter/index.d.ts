@@ -3,7 +3,7 @@ import { Extension, ExtensionProps } from '../../types';
 export declare type Attributes = {
     [attr: string]: string;
 };
-export declare type OpenDialogFn = (onOK: (link: Attributes) => void, onCancel: () => void) => void;
+export declare type OpenDialogFn = (onOK: (link: Attributes) => void, onCancel: () => void, attrs: Attributes) => void;
 declare type config = ExtensionProps & {
     openDialog: OpenDialogFn;
     attributes: string[];

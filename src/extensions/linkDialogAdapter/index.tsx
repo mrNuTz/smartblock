@@ -6,7 +6,7 @@ import { markActive, getMarkInSelection } from '../../utils'
 import tooltip from './tooltip'
 
 export type Attributes = { [attr: string]: string }
-export type OpenDialogFn = (onOK: (link: Attributes) => void, onCancel: () => void) => void
+export type OpenDialogFn = (onOK: (link: Attributes) => void, onCancel: () => void, attrs: Attributes) => void
 type config = ExtensionProps & {
   openDialog: OpenDialogFn;
   attributes: string[];
