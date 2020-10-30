@@ -1,5 +1,6 @@
 .__tests__/*
 assets/*
+dist/*
 node_modules/*
 tools/*
 .eslintrc

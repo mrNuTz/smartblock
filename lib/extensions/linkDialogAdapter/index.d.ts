@@ -25,7 +25,7 @@ export default class LinkDialogAdapter extends Extension {
         inclusive: boolean;
         parseDOM: {
             tag: string;
-            getAttrs(dom: any): any;
+            getAttrs: (dom: any) => {};
         }[];
         toDOM(node: any): any[];
     };

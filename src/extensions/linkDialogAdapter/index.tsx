@@ -42,7 +42,6 @@ export default class LinkDialogAdapter extends Extension {
     if (this.customSchema) {
       return this.customSchema;
     }
-    const { className } = this;
     return {
       group: 'mark',
       attrs: {
@@ -56,12 +55,11 @@ export default class LinkDialogAdapter extends Extension {
       parseDOM: [
         {
           tag: 'a[href]:not(.embed)',
-          getAttrs(dom) {
-            return this._attributes.reduce((attrs, attr) => {
+          getAttrs: dom =>
+            this._attributes.reduce((attrs, attr) => {
               attrs[attr] = dom.getAttribute(attr)
               return attrs
             }, {})
-          }
         }
       ],
       toDOM(node) {
