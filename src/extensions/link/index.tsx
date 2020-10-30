@@ -4,6 +4,7 @@ import LinkIcon from '../../components/icons/link'
 import { Extension, ExtensionProps } from '../../types'
 import { markActive, getMarkInSelection } from '../../utils'
 import tooltip from './tooltip'
+import { EditorState } from 'prosemirror-state'
 
 export default class Link extends Extension {
   constructor(props?: ExtensionProps) {
@@ -61,8 +62,17 @@ export default class Link extends Extension {
     return [tooltip()]
   }
 
-  active(state) {
+  active(state: EditorState) {
     return markActive(state.schema.marks.link)(state)
+      && (!state.selection.$from.nodeBefore || !state.selection.$from.nodeBefore.marks.some(m => m.type.name === 'link'))
+      && (!state.selection.$to.nodeAfter || !state.selection.$to.nodeAfter.marks.some(m => m.type.name === 'link'))
+  }
+
+  enable(state: EditorState) {
+    return !markActive(state.schema.marks.link)(state) || (
+      (!state.selection.$from.nodeBefore || !state.selection.$from.nodeBefore.marks.some(m => m.type.name === 'link'))
+      && (!state.selection.$to.nodeAfter || !state.selection.$to.nodeAfter.marks.some(m => m.type.name === 'link'))
+    )
   }
 
   onClick(state, dispatch) {
@@ -82,7 +92,7 @@ export default class Link extends Extension {
       tr.addMark(
         beforePos,
         afterPos,
-        state.schema.marks.link.create({ href: link.attrs.href, editing: 'true' })
+        state.schema.marks.link.create({ ...link.attrs, editing: 'true' })
       )
       // dispatch
       dispatch(tr.scrollIntoView());

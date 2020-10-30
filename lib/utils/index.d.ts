@@ -1,6 +1,6 @@
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { Node, Schema } from 'prosemirror-model';
+import { Node, Schema, Mark } from 'prosemirror-model';
 import { Dispatch } from '../types';
 export declare const getScrollTop: () => number;
 export declare const getScrollLeft: () => number;
@@ -23,7 +23,7 @@ export declare const getViewport: () => {
     keyboardHeight: number;
 };
 export declare const markActive: (type: any) => (state: any) => any;
-export declare const getMarkInSelection: (markName: string, state: EditorState) => import("prosemirror-model").Mark<any>;
+export declare const getMarkInSelection: (markName: string, state: EditorState) => Mark | null;
 export declare const blockActive: (type: any) => (state: any) => boolean;
 export declare const canInsert: (type: any) => (state: any) => boolean;
 export declare const findNodePosition: (doc: Node, target: Node) => number;

@@ -7,7 +7,8 @@ import {
   Fragment,
   NodeRange,
   DOMSerializer,
-  Schema
+  Schema,
+  Mark
 } from 'prosemirror-model';
 import { liftTarget, ReplaceAroundStep } from 'prosemirror-transform';
 import { Dispatch } from '../types';
@@ -84,18 +85,16 @@ export const markActive = type => state => {
     : state.doc.rangeHasMark(from, to, type);
 }
 
-export const getMarkInSelection = (markName: string, state: EditorState) => {
-  const { selection } = state;
-  const { $anchor } = selection;
-  const { nodeAfter } = $anchor;
-  if (nodeAfter) {
-    return nodeAfter.marks.find(mark => {
-      if (mark.type.name === markName) {
-        return true;
-      }
-    })
-  }
-  return null;
+export const getMarkInSelection = (markName: string, state: EditorState): Mark|null => {
+  const { from, to, $from, empty } = state.selection;
+  if (empty)
+    return (state.storedMarks || $from.marks()).find(mark => (mark.type.name === markName))
+
+  let res = null
+  state.doc.nodesBetween(from, to, node => {
+    res = res || node.marks.find(mark => (mark.type.name === markName))
+  })
+  return res
 }
 
 export const blockActive = type => state => {

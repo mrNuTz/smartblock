@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import { Extension, ExtensionProps } from '../../types';
+import { EditorState } from 'prosemirror-state';
 export declare type Attributes = {
     [attr: string]: string;
 };
@@ -31,7 +32,8 @@ export default class LinkDialogAdapter extends Extension {
     };
     get icon(): JSX.Element;
     get plugins(): import("prosemirror-state").Plugin<any, any>[];
-    active(state: any): any;
-    onClick(state: any, dispatch: any): boolean;
+    active(state: EditorState): boolean;
+    enable(state: EditorState): boolean;
+    onClick(state: EditorState, dispatch: any): boolean;
 }
 export {};

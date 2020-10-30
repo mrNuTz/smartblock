@@ -8,7 +8,7 @@ import { OpenDialogFn, Attributes } from './'
 
 const { useRef } = React
 const ARROWOFFSET = 50
-const ARROWTOPOFFSET = 30
+const ARROWTOPOFFSET = 33
 const TOOLTIP_WIDTH = 92
 
 const calculateStyle = (

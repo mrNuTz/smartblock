@@ -4,6 +4,7 @@ import LinkIcon from '../../components/icons/link'
 import { Extension, ExtensionProps } from '../../types'
 import { markActive, getMarkInSelection } from '../../utils'
 import tooltip from './tooltip'
+import { EditorState } from 'prosemirror-state'
 
 export type Attributes = { [attr: string]: string }
 export type OpenDialogFn = (onOK: (link: Attributes) => void, onCancel: () => void, attrs: Attributes) => void
@@ -76,11 +77,20 @@ export default class LinkDialogAdapter extends Extension {
     return [tooltip({ openDialog: this._openDialog, attributes: this._attributes})]
   }
 
-  active(state) {
+  active(state: EditorState) {
     return markActive(state.schema.marks.link)(state)
+      && (!state.selection.$from.nodeBefore || !state.selection.$from.nodeBefore.marks.some(m => m.type.name === 'link'))
+      && (!state.selection.$to.nodeAfter || !state.selection.$to.nodeAfter.marks.some(m => m.type.name === 'link'))
   }
 
-  onClick(state, dispatch) {
+  enable(state: EditorState) {
+    return !markActive(state.schema.marks.link)(state) || (
+      (!state.selection.$from.nodeBefore || !state.selection.$from.nodeBefore.marks.some(m => m.type.name === 'link'))
+      && (!state.selection.$to.nodeAfter || !state.selection.$to.nodeAfter.marks.some(m => m.type.name === 'link'))
+    )
+  }
+
+  onClick(state: EditorState, dispatch) {
     if (markActive(state.schema.marks.link)(state)) {
       const link = getMarkInSelection('link', state);
       const { selection } = state;
@@ -97,9 +107,8 @@ export default class LinkDialogAdapter extends Extension {
       tr.addMark(
         beforePos,
         afterPos,
-        state.schema.marks.link.create({ href: link.attrs.href, editing: 'true' })
+        state.schema.marks.link.create({ ...link.attrs, editing: 'true' })
       )
-      // dispatch
       dispatch(tr.scrollIntoView());
       return true;
     }
