@@ -1,6 +1,7 @@
 import { splitListItem, sinkListItem } from 'prosemirror-schema-list';
 import { Schema } from 'prosemirror-model';
 import { chainCommands } from 'prosemirror-commands';
+import * as uuid from 'uuid/v4'
 import { Extension, ExtensionProps } from '../types';
 import { liftListItem } from '../utils';
 
@@ -38,7 +39,13 @@ export default class ListItem extends Extension {
         id: { default: '' }
       },
       toDOM(node) {
-        return ['li', 0]
+        return [
+          'li',
+          {
+            id: node.attrs.id || uuid()
+          },
+          0
+        ]
       },
       defining: true
     }

@@ -12,7 +12,6 @@ export default class Paragraph extends Extension {
             tag: string;
             getAttrs(dom: any): {
                 id: any;
-                align: any;
             };
         }[];
         attrs: {
@@ -25,10 +24,8 @@ export default class Paragraph extends Extension {
         };
         toDOM: (node: any) => (string | number | {
             style: string;
+            id: any;
             class: string;
-        } | {
-            class: string;
-            style?: undefined;
         })[];
     };
     get icon(): JSX.Element;

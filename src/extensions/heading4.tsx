@@ -38,25 +38,28 @@ export default class Heading4 extends Extension {
         {
           tag: 'h4',
           getAttrs(dom) {
-            return {
+            const attr = {
               id: dom.getAttribute('id') || uuid()
+            };
+            if (dom.style.textAlign) {
+              attr['align'] = dom.style.textAlign;
             }
+            return attr;
           }
         }
       ],
       attrs: {
-        align: { default: '' },
+        align: { default: 'left' },
         id: { default: '' }
       },
       toDOM(node) {
         return [
           'h4',
-          (node.attrs.align ? {
+          {
             style: `text-align: ${node.attrs.align}`,
+            id: node.attrs.id || uuid(),
             class: this.className
-          } : {
-            class: this.className
-          }),
+          },
           0
         ]
       }
