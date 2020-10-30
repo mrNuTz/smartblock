@@ -128,7 +128,7 @@ const TooltipComponent = (props: { view: EditorView; attributes: string[]; openD
   const onCancel = () => {
     const { tr } = view.state;
     tr.removeMark(beforePos, afterPos, view.state.schema.marks.link);
-    if (link.href) {
+    if (Object.values(attrs).some(v => v)) {
       tr.addMark(
         beforePos,
         afterPos,
