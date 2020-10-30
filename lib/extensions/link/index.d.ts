@@ -10,7 +10,7 @@ export default class Link extends Extension {
         attrs: {
             href: {};
             editing: {
-                default: boolean;
+                default: string;
             };
             title: {
                 default: any;

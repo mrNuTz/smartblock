@@ -19,7 +19,7 @@ export default class LinkDialogAdapter extends Extension {
         group: string;
         attrs: {
             editing: {
-                default: boolean;
+                default: string;
             };
         };
         inclusive: boolean;

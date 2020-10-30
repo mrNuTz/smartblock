@@ -4,20 +4,14 @@ import CheckIcon from '../../components/icons/check'
 type TooltipReactProps = {
   url: string;
   onClick(url: string): void;
-  editing: boolean;
 }
 
 export default (props: TooltipReactProps) => {
   const [url, setUrl] = React.useState('');
-  const { editing } = props;
 
   React.useEffect(() => {
     setUrl(props.url);
   }, [props.url])
-  
-  if (!editing) {
-    return null;
-  }
 
   return (
     <div className="smartblock-tooltip">
@@ -36,11 +30,11 @@ export default (props: TooltipReactProps) => {
             setUrl(e.target.value);
           }}
         />
-        <button 
+        <button
           className="smartblock-tooltip-btn"
           onClick={() => {
             props.onClick(url);
-          }} 
+          }}
           style={{ paddingLeft: '7px' }}>
           <CheckIcon
             style={{ width: '24px', height: '24px', overflow: 'hidden' }}

@@ -31,7 +31,7 @@ export default class Link extends Extension {
       group: 'mark',
       attrs: {
         href: {},
-        editing: { default: true },
+        editing: { default: 'true' },
         title: { default: null }
       },
       inclusive: false,
@@ -82,14 +82,14 @@ export default class Link extends Extension {
       tr.addMark(
         beforePos,
         afterPos,
-        state.schema.marks.link.create({ href: link.attrs.href, editing: true })
+        state.schema.marks.link.create({ href: link.attrs.href, editing: 'true' })
       )
       // dispatch
       dispatch(tr.scrollIntoView());
       return true;
     }
 
-    toggleMark(state.schema.marks.link, { href: '', editing: true })(
+    toggleMark(state.schema.marks.link, { href: '', editing: 'true' })(
       state,
       dispatch
     )

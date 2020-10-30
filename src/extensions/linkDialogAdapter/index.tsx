@@ -45,7 +45,7 @@ export default class LinkDialogAdapter extends Extension {
     return {
       group: 'mark',
       attrs: {
-        editing: { default: true },
+        editing: { default: 'true' },
         ...(this._attributes.reduce((attrs, attr) => {
           attrs[attr] = { default: attr === 'href' ? '' : null }
           return attrs
@@ -97,14 +97,14 @@ export default class LinkDialogAdapter extends Extension {
       tr.addMark(
         beforePos,
         afterPos,
-        state.schema.marks.link.create({ href: link.attrs.href, editing: true })
+        state.schema.marks.link.create({ href: link.attrs.href, editing: 'true' })
       )
       // dispatch
       dispatch(tr.scrollIntoView());
       return true;
     }
 
-    toggleMark(state.schema.marks.link, { href: '', editing: true })(
+    toggleMark(state.schema.marks.link, { href: '', editing: 'true' })(
       state,
       dispatch
     )

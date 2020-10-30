@@ -94,7 +94,7 @@ const TooltipComponent = (props: { view: EditorView; attributes: string[]; openD
   const { $anchor } = selection;
   const { nodeBefore, nodeAfter, pos } = $anchor;
   let link = null;
-  let editing = false;
+  let editing = '';
   if (nodeAfter) {
     link = nodeAfter.marks.find(mark => {
       if (mark.type.name === 'link') {
@@ -121,7 +121,7 @@ const TooltipComponent = (props: { view: EditorView; attributes: string[]; openD
     tr.addMark(
       beforePos,
       afterPos,
-      view.state.schema.marks.link.create({ ...attrs, editing: false })
+      view.state.schema.marks.link.create({ ...attrs, editing: '' })
     );
     view.dispatch(tr);
   }
@@ -132,7 +132,7 @@ const TooltipComponent = (props: { view: EditorView; attributes: string[]; openD
       tr.addMark(
         beforePos,
         afterPos,
-        view.state.schema.marks.link.create({ ...attrs, editing: false })
+        view.state.schema.marks.link.create({ ...attrs, editing: '' })
       );
     }
     view.dispatch(tr);
@@ -154,7 +154,7 @@ const TooltipComponent = (props: { view: EditorView; attributes: string[]; openD
         className="smartblock-tooltip-arrow"
         style={{ left: `${arrowPos}px` }}
       />
-      { editing &&
+      { editing === 'true' &&
         <TooltipReact onDel={onDel} onEdit={onEdit} />
       }
     </div>

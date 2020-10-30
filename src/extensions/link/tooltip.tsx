@@ -92,7 +92,7 @@ const TooltipComponent = (props: { view: EditorView }) => {
   const { $anchor } = selection;
   const { nodeBefore, nodeAfter, pos } = $anchor;
   let link = null;
-  let editing = false;
+  let editing = '';
   if (nodeAfter) {
     link = nodeAfter.marks.find(mark => {
       if (mark.type.name === 'link') {
@@ -121,28 +121,29 @@ const TooltipComponent = (props: { view: EditorView }) => {
       ref={container}
       style={style}
     >
-      <div 
+      <div
         className="smartblock-tooltip-arrow"
         style={{ left: `${arrowPos}px` }}
       ></div>
-      <TooltipReact
-        url={url}
-        editing={editing}
-        onClick={href => {
-          const { tr } = view.state;
-          tr.removeMark(beforePos, afterPos, view.state.schema.marks.link);
-          if (!href) {
+      { editing === 'true' &&
+        <TooltipReact
+          url={url}
+          onClick={href => {
+            const { tr } = view.state;
+            tr.removeMark(beforePos, afterPos, view.state.schema.marks.link);
+            if (!href) {
+              view.dispatch(tr);
+              return;
+            }
+            tr.addMark(
+              beforePos,
+              afterPos,
+              view.state.schema.marks.link.create({ href, editing: '' })
+            );
             view.dispatch(tr);
-            return;
-          }
-          tr.addMark(
-            beforePos,
-            afterPos,
-            view.state.schema.marks.link.create({ href, editing: false })
-          );
-          view.dispatch(tr);
-        }}
-      />
+          }}
+        />
+      }
     </div>
   )
 }
