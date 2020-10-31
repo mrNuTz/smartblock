@@ -10,12 +10,12 @@ declare type config = ExtensionProps & {
     attributes: string[];
 };
 export default class LinkDialogAdapter extends Extension {
+    name: string;
+    group: string;
+    showMenu: boolean;
     private _openDialog;
     private _attributes;
     constructor(props?: config);
-    get name(): string;
-    get group(): string;
-    get showMenu(): boolean;
     get schema(): import("../../types").ExtensionSchema | {
         group: string;
         attrs: {

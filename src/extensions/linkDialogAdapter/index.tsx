@@ -15,6 +15,9 @@ type config = ExtensionProps & {
 
 export default class LinkDialogAdapter extends Extension {
 
+  name = 'link'
+  group = 'mark'
+  showMenu = true
   private _openDialog: OpenDialogFn
   private _attributes: string[]
 
@@ -25,18 +28,6 @@ export default class LinkDialogAdapter extends Extension {
     this._attributes = props.attributes.includes('href')
       ? props.attributes
       : props.attributes.concat('href');
-  }
-
-  get name() {
-    return 'link'
-  }
-
-  get group() {
-    return 'mark'
-  }
-
-  get showMenu() {
-    return true
   }
 
   get schema() {

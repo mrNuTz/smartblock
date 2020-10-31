@@ -3,82 +3,10 @@ import { EditorView } from 'prosemirror-view';
 import { Plugin } from 'prosemirror-state';
 import { render, unmountComponentAtNode } from 'react-dom';
 import TooltipReact from './tooltip-react';
-import { getScrollTop } from '../../utils';
+import { getMarkInSelection, getScrollTop } from '../../utils';
 import { OpenDialogFn, Attributes } from './'
 
-const { useRef } = React
-const ARROWOFFSET = 50
-const ARROWTOPOFFSET = 33
 const TOOLTIP_WIDTH = 92
-
-const calculateStyle = (
-  view: EditorView
-) => {
-  const { selection } = view.state;
-  const app = view.dom;
-  const { $anchor } = view.state.selection;
-  const { nodeAfter } = $anchor;
-  let link = null;
-
-  if (nodeAfter) {
-    link = nodeAfter.marks.find(mark => {
-      if (mark.type.name === 'link') {
-        return true;
-      }
-    })
-  }
-
-  if (!selection || selection.empty || !app || !link) {
-    return {
-      left: -1000,
-      top: 0
-    }
-  }
-
-  const coords = view.coordsAtPos(selection.$head.pos);
-  const top = coords.top + getScrollTop() + ARROWTOPOFFSET;
-  const left = coords.left - ARROWOFFSET;
-
-  const width = TOOLTIP_WIDTH; // container.current.offsetWidth
-
-  return {
-    left: (left + width > window.innerWidth) ? window.innerWidth - width : left,
-    top
-  }
-}
-
-const calculatePos = (
-  view: EditorView
-) => {
-  const { selection } = view.state;
-  const app = view.dom;
-  const { $anchor } = view.state.selection;
-  const { nodeAfter } = $anchor;
-  let link = null;
-
-  if (nodeAfter) {
-    link = nodeAfter.marks.find(mark => {
-      if (mark.type.name === 'link') {
-        return true;
-      }
-      return false;
-    })
-  }
-
-  if (!selection || selection.empty || !app || !link) {
-    return 20;
-  }
-
-  const coords = view.coordsAtPos(selection.$head.pos);
-  const left = coords.left - ARROWOFFSET;
-
-  const width = TOOLTIP_WIDTH; // container.current.offsetWidth
-  if (left + width > window.innerWidth) {
-    return left - window.innerWidth + width;
-  }
-
-  return 20;
-}
 
 const filterAttrs = attrs => Object.entries(attrs).reduce((res, [k, v]) => {
   if (v && k !== 'editing')
@@ -86,77 +14,69 @@ const filterAttrs = attrs => Object.entries(attrs).reduce((res, [k, v]) => {
   return res;
 }, {});
 
+const clamp = (v, min, max) => v < min ? min : v > max ? max : v
+
+let linkPos = null
+
 const TooltipComponent = (props: { view: EditorView; attributes: string[]; openDialog: OpenDialogFn }) => {
   const { view, openDialog } = props;
-  const container = useRef<HTMLDivElement>(null);
-  const style = calculateStyle(view);
-  const { selection } = view.state;
-  const { $anchor } = selection;
-  const { nodeBefore, nodeAfter, pos } = $anchor;
-  let link = null;
-  let editing = '';
-  if (nodeAfter) {
-    link = nodeAfter.marks.find(mark => {
-      if (mark.type.name === 'link') {
-        return true;
-      }
-    })
-  }
-  let attrs = {};
-  if (link) {
-    attrs = filterAttrs(link.attrs)
-    editing = link.attrs.editing;
-  }
-  let beforePos = selection.from;
-  let afterPos = selection.to;
-  if (beforePos === afterPos && nodeBefore && nodeAfter) {
-    beforePos = pos - nodeBefore.nodeSize;
-    afterPos = pos + nodeAfter.nodeSize;
-  }
-  const arrowPos = calculatePos(view);
+  const { state } = view
+  const { selection } = state
+  const { from, to, $head } = selection;
+  const link = getMarkInSelection('link', state);
 
+  if (from === to || !link || !link.attrs.editing) {
+    if (linkPos && (!link || link.attrs.editing)) {
+      const { tr } = state;
+      tr.removeMark(linkPos.from, linkPos.to, state.schema.marks.link);
+      view.dispatch(tr);
+    }
+    linkPos = null;
+    return null;
+  }
+  linkPos = { from, to }
+
+  const attrs = filterAttrs(link.attrs)
   const onOk = (attrs) => {
-    const { tr } = view.state;
-    tr.removeMark(beforePos, afterPos, view.state.schema.marks.link);
+    const { tr } = state;
+    tr.removeMark(from, to, state.schema.marks.link);
     tr.addMark(
-      beforePos,
-      afterPos,
-      view.state.schema.marks.link.create({ ...attrs, editing: '' })
+      from,
+      to,
+      state.schema.marks.link.create({ ...attrs, editing: '' })
     );
     view.dispatch(tr);
   }
   const onCancel = () => {
-    const { tr } = view.state;
-    tr.removeMark(beforePos, afterPos, view.state.schema.marks.link);
+    const { tr } = state;
+    tr.removeMark(from, to, state.schema.marks.link);
     if (Object.values(attrs).some(v => v)) {
       tr.addMark(
-        beforePos,
-        afterPos,
+        from,
+        to,
         view.state.schema.marks.link.create({ ...attrs, editing: '' })
       );
     }
     view.dispatch(tr);
   }
-  const onEdit = () => openDialog(onOk, onCancel, attrs)
+  const onEdit = () => {
+    console.log('onEdit')
+    openDialog(onOk, onCancel, attrs)
+  }
   const onDel = () => {
-    const { tr } = view.state;
-    tr.removeMark(beforePos, afterPos, view.state.schema.marks.link);
+    const { tr } = state;
+    tr.removeMark(from, to, state.schema.marks.link);
     view.dispatch(tr);
   }
 
+  const coords = view.coordsAtPos($head.pos);
+  const top = coords.top + getScrollTop() + 43;
+  const left = clamp(coords.left - 30, 0, window.innerWidth - TOOLTIP_WIDTH);
+
   return (
-    <div
-      className="smartblock-tooltip-wrap"
-      ref={container}
-      style={style}
-    >
-      <div
-        className="smartblock-tooltip-arrow"
-        style={{ left: `${arrowPos}px` }}
-      />
-      { editing === 'true' &&
-        <TooltipReact onDel={onDel} onEdit={onEdit} />
-      }
+    <div className="smartblock-tooltip-wrap" style={{ left, top }}>
+      <div className="smartblock-tooltip-wrap-arrow" style={{ left: 20 }}/>
+      <TooltipReact onDel={onDel} onEdit={onEdit} />
     </div>
   )
 }

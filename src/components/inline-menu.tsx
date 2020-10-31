@@ -10,8 +10,8 @@ interface PositionProps {
 
 const { useRef } = React;
 
-const ARROWOFFSET = 50;
-const ARROWTOPOFFSET = 25;
+const ARROWOFFSET = 30;
+const ARROWTOPOFFSET = 35;
 
 const calculateStyle = (
   view: EditorView,
@@ -100,8 +100,8 @@ const MenuBar = ({
 
   return (
     <div style={style} ref={container} className="smartblock-inline-menu">
-      <div 
-        className="smartblock-inline-menu-arrow" 
+      <div
+        className="smartblock-inline-menu-arrow"
         style={{left: `${pos}px`}}
       >
       </div>
