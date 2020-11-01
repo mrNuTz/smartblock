@@ -34,6 +34,6 @@ export default class LinkDialogAdapter extends Extension {
     get plugins(): import("prosemirror-state").Plugin<any, any>[];
     active(state: EditorState): boolean;
     enable(state: EditorState): boolean;
-    onClick(state: EditorState, dispatch: any): boolean;
+    onClick(state: EditorState, dispatch: any): void;
 }
 export {};
