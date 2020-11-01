@@ -69,41 +69,14 @@ export default class LinkDialogAdapter extends Extension {
   }
 
   active(state: EditorState) {
-    return markActive(state.schema.marks.link)(state)
-      && (!state.selection.$from.nodeBefore || !state.selection.$from.nodeBefore.marks.some(m => m.type.name === 'link'))
-      && (!state.selection.$to.nodeAfter || !state.selection.$to.nodeAfter.marks.some(m => m.type.name === 'link'))
+    return false
   }
 
   enable(state: EditorState) {
-    return !markActive(state.schema.marks.link)(state) || (
-      (!state.selection.$from.nodeBefore || !state.selection.$from.nodeBefore.marks.some(m => m.type.name === 'link'))
-      && (!state.selection.$to.nodeAfter || !state.selection.$to.nodeAfter.marks.some(m => m.type.name === 'link'))
-    )
+    return !markActive(state.schema.marks.link)(state)
   }
 
   onClick(state: EditorState, dispatch) {
-    if (markActive(state.schema.marks.link)(state)) {
-      const link = getMarkInSelection('link', state);
-      const { selection } = state;
-      const { $anchor } = selection;
-      const { nodeBefore, nodeAfter, pos } = $anchor;
-      let beforePos = selection.from;
-      let afterPos = selection.to;
-      if (beforePos === afterPos && nodeBefore && nodeAfter) {
-        beforePos = pos - nodeBefore.nodeSize;
-        afterPos = pos + nodeAfter.nodeSize;
-      }
-      const { tr } = state;
-      tr.removeMark(beforePos, afterPos, state.schema.marks.link);
-      tr.addMark(
-        beforePos,
-        afterPos,
-        state.schema.marks.link.create({ ...link.attrs, editing: 'true' })
-      )
-      dispatch(tr.scrollIntoView());
-      return true;
-    }
-
     toggleMark(state.schema.marks.link, { href: '', editing: 'true' })(
       state,
       dispatch
