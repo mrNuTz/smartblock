@@ -2,7 +2,7 @@ import * as React from 'react'
 import { toggleMark } from 'prosemirror-commands'
 import LinkIcon from '../../components/icons/link'
 import { Extension, ExtensionProps } from '../../types'
-import { markActive, getMarkInSelection } from '../../utils'
+import { markActive } from '../../utils'
 import tooltip from './tooltip'
 import { EditorState } from 'prosemirror-state'
 
@@ -65,7 +65,7 @@ export default class LinkDialogAdapter extends Extension {
   }
 
   get plugins() {
-    return [tooltip({ openDialog: this._openDialog, attributes: this._attributes})]
+    return [tooltip({ openDialog: this._openDialog, attributes: this._attributes })]
   }
 
   active(state: EditorState) {
@@ -77,9 +77,11 @@ export default class LinkDialogAdapter extends Extension {
   }
 
   onClick(state: EditorState, dispatch) {
-    toggleMark(state.schema.marks.link, { href: '', editing: 'true' })(
-      state,
-      dispatch
-    )
+    if (!markActive(state.schema.marks.link)(state)) {
+      toggleMark(state.schema.marks.link, { href: '', editing: 'true' })(
+        state,
+        dispatch
+      )
+    }
   }
 }
