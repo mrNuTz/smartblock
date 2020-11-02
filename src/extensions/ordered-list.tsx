@@ -50,6 +50,7 @@ export default class OrderedList extends Extension {
         return [
           'ol',
           {
+            id: node.attrs.id || uuid(),
             class: this.className
           },
           0

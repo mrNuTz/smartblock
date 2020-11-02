@@ -25,8 +25,6 @@ export default (props: EditorProps) => {
   const editorRef = useRef<HTMLDivElement>(null);
   const view = useView(props);
 
-  // Object.keys(props.options).forEach((key) => console.log(key, {...props.options[key]}))
-
   useEffect(() => {
     if (editorRef.current) {
       editorRef.current.appendChild(view.dom);

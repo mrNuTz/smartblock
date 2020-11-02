@@ -33,9 +33,13 @@ export default class BlockQuote extends Extension {
         {
           tag: 'blockquote',
           getAttrs(dom) {
-            return {
+            const attr = {
               id: dom.getAttribute('id') || uuid()
+            };
+            if (dom.style.textAlign) {
+              attr['align'] = dom.style.textAlign;
             }
+            return attr;
           }
         }
       ],
@@ -47,6 +51,8 @@ export default class BlockQuote extends Extension {
         return [
           'blockquote',
           {
+            style: `text-align: ${node.attrs.align}`,
+            id: node.attrs.id || uuid(),
             class: this.className
           },
           0

@@ -1,16 +1,17 @@
 /// <reference types="react" />
 import { Extension, ExtensionProps } from '../../types';
+import { EditorState } from 'prosemirror-state';
 export default class Link extends Extension {
     constructor(props?: ExtensionProps);
-    readonly name: string;
-    readonly group: string;
-    readonly showMenu: boolean;
-    readonly schema: import("../../types").ExtensionSchema | {
+    get name(): string;
+    get group(): string;
+    get showMenu(): boolean;
+    get schema(): import("../../types").ExtensionSchema | {
         group: string;
         attrs: {
             href: {};
             editing: {
-                default: boolean;
+                default: string;
             };
             title: {
                 default: any;
@@ -30,8 +31,9 @@ export default class Link extends Extension {
             class: string;
         })[];
     };
-    readonly icon: JSX.Element;
-    readonly plugins: import("prosemirror-state").Plugin<any, any>[];
-    active(state: any): any;
+    get icon(): JSX.Element;
+    get plugins(): import("prosemirror-state").Plugin<any, any>[];
+    active(state: EditorState): boolean;
+    enable(state: EditorState): boolean;
     onClick(state: any, dispatch: any): boolean;
 }

@@ -49,6 +49,7 @@ export default class BulletList extends Extension {
         return [
           'ul',
           {
+            id: node.attrs.id || uuid(),
             class: this.className
           },
           0

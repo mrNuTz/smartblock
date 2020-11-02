@@ -5,8 +5,8 @@ declare type Config = {
 export default class DefaultPlugins implements Extension {
     placeholder: string;
     constructor(config: Config);
-    readonly name: string;
-    readonly showMenu: boolean;
-    readonly plugins: any[];
+    get name(): string;
+    get showMenu(): boolean;
+    get plugins(): any[];
 }
 export {};
