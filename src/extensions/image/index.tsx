@@ -3,7 +3,6 @@ import ImageIcon from './image-icon';
 import { blockActive, findSelectedNodeWithType } from '../../utils';
 import { Extension, Dispatch } from '../../types'
 import { setBlockType } from 'prosemirror-commands';
-import * as uuid from 'uuid/v4'
 import { EditorState } from 'prosemirror-state';
 import { MediaPlugin } from './plugins';
 import { hasClass, readFiles } from './util';
@@ -63,7 +62,6 @@ export default class Image extends Extension {
       attrs: {
         src: { default: "" },
         size: { default: "" },
-        id: { default: "" },
         caption: { default: "" }
       },
       parseDOM: [
@@ -76,7 +74,6 @@ export default class Image extends Extension {
             }
             return {
               src: img.getAttribute("src"),
-              id: img.getAttribute("id"),
               size: hasClass(img, imgClassName) ? 'small' : 'full'
             }
           }
@@ -86,7 +83,6 @@ export default class Image extends Extension {
           getAttrs(dom) {
             return {
               src: dom.getAttribute("src"),
-              id: dom.getAttribute("id"),
               size: hasClass(dom, imgClassName) ? 'small' : 'full'
             }
           }
@@ -101,8 +97,8 @@ export default class Image extends Extension {
             src: node.attrs.src,
             "class": node.attrs.size === "full" ? this.imgFullClassName : this.imgClassName,
           }],
-          (this.withCaption ? 
-            ["figcaption", {"class": this.captionClassName}, 0] : 
+          (this.withCaption ?
+            ["figcaption", {"class": this.captionClassName}, 0] :
             ["figcaption", 0]
           ),
         ];
@@ -132,7 +128,7 @@ export default class Image extends Extension {
   }
   customButton({ state, dispatch }) {
     const disabled = (this.enable && !this.enable(state)) || this.hideMenuOnFocus;
-    return (<Button 
+    return (<Button
       tag="label"
       active={this.active && this.active(state)}
       disabled={disabled}
@@ -147,8 +143,8 @@ export default class Image extends Extension {
     const node = findSelectedNodeWithType(state.schema.nodes.image, state);
     return (
       <>
-        <Button 
-          type="button" 
+        <Button
+          type="button"
           style={{
             marginRight: '1px',
             borderTopRightRadius: '0',
@@ -164,8 +160,8 @@ export default class Image extends Extension {
         >
           <FullIcon style={{ width: '24px', height: '24px' }} />
         </Button>
-        <Button 
-          type="button" 
+        <Button
+          type="button"
           style={{
             borderTopLeftRadius: '0',
             borderBottomLeftRadius: '0',

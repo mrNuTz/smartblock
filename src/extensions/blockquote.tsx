@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { setBlockType } from 'prosemirror-commands'
-import * as uuid from 'uuid/v4'
 import BlockQuoteIcon from '../components/icons/blockquote'
 import { Extension, ExtensionProps } from '../types'
 import { blockActive } from '../utils'
@@ -9,6 +8,8 @@ export default class BlockQuote extends Extension {
   constructor(props?: ExtensionProps) {
     super(props);
   }
+
+
 
   get name() {
     return 'blockquote';
@@ -34,7 +35,6 @@ export default class BlockQuote extends Extension {
           tag: 'blockquote',
           getAttrs(dom) {
             const attr = {
-              id: dom.getAttribute('id') || uuid()
             };
             if (dom.style.textAlign) {
               attr['align'] = dom.style.textAlign;
@@ -45,14 +45,12 @@ export default class BlockQuote extends Extension {
       ],
       attrs: {
         align: { default: 'left' },
-        id: { default: '' }
       },
       toDOM: node => {
         return [
           'blockquote',
           {
             style: `text-align: ${node.attrs.align}`,
-            id: node.attrs.id || uuid(),
             class: this.className
           },
           0

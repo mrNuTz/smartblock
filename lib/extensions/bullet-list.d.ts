@@ -10,17 +10,9 @@ export default class BulletList extends Extension {
         group: string;
         parseDOM: {
             tag: string;
-            getAttrs(dom: any): {
-                id: any;
-            };
         }[];
-        attrs: {
-            id: {
-                default: string;
-            };
-        };
+        attrs: {};
         toDOM(node: any): (string | number | {
-            id: any;
             class: any;
         })[];
     };

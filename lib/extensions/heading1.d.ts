@@ -11,21 +11,15 @@ export default class Heading1 extends Extension {
         defining: boolean;
         parseDOM: {
             tag: string;
-            getAttrs(dom: any): {
-                id: any;
-            };
+            getAttrs(dom: any): {};
         }[];
         attrs: {
             align: {
                 default: string;
             };
-            id: {
-                default: string;
-            };
         };
         toDOM(node: any): (string | number | {
             style: string;
-            id: any;
             class: any;
         })[];
     };

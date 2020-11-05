@@ -9,18 +9,9 @@ export default class ListItem extends Extension {
         group: string;
         parseDOM: {
             tag: string;
-            getAttrs(dom: any): {
-                id: any;
-            };
         }[];
-        attrs: {
-            id: {
-                default: string;
-            };
-        };
-        toDOM(node: any): (string | number | {
-            id: any;
-        })[];
+        attrs: {};
+        toDOM: () => {}[];
         defining: boolean;
     };
     keys(schema: Schema): {

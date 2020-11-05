@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { setBlockType } from 'prosemirror-commands'
-import * as uuid from 'uuid/v4'
 import ParagraphIcon from '../components/icons/paragraph'
 import AlignLeftIcon from '../components/icons/align-left'
 import AlignCenterIcon from '../components/icons/align-center'
@@ -37,9 +36,7 @@ export default class Paragraph extends Extension {
         {
           tag: 'p',
           getAttrs(dom) {
-            const attr = {
-              id: dom.getAttribute('id') || uuid(),
-            };
+            const attr = {};
             if (dom.style.textAlign) {
               attr['align'] = dom.style.textAlign;
             }
@@ -49,14 +46,12 @@ export default class Paragraph extends Extension {
       ],
       attrs: {
         align: { default: 'left' },
-        id: { default: '' }
       },
       toDOM: node => {
         return [
           'p',
           {
             style: `text-align: ${node.attrs.align}`,
-            id: node.attrs.id || uuid(),
             class: this.className
           },
           0

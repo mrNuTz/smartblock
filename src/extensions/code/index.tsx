@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { setBlockType } from 'prosemirror-commands';
-import * as uuid from 'uuid/v4'
 import { getParentNodeFromState } from '../../utils';
 import { Extension, ExtensionProps } from '../../types';
 import { blockActive } from '../../utils';
@@ -71,7 +70,6 @@ export default class Code extends Extension {
           getAttrs(dom) {
             dom.innerHTML = dom.innerHTML.replace(/\n/g, '<br/>');
             return {
-              id: dom.getAttribute('id') || uuid(),
               lang: dom.getAttribute('class') ? dom.getAttribute('class') : defaultLang
             }
           }
@@ -81,7 +79,6 @@ export default class Code extends Extension {
         return [
           'pre',
           {
-            id: node.attrs.id || uuid(),
             className: this.className
           },
           ['code', {
@@ -90,9 +87,6 @@ export default class Code extends Extension {
         ]
       },
       attrs: {
-        id: {
-          default: ''
-        },
         lang: {
           default: defaultLang
         }

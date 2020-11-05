@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { setBlockType } from 'prosemirror-commands';
-import * as uuid from 'uuid/v4'
 import AlignLeftIcon from '../components/icons/align-left';
 import AlignCenterIcon from '../components/icons/align-center';
 import AlignRightIcon from '../components/icons/align-right';
@@ -43,15 +42,12 @@ export default class CustomBlock extends Extension {
       defining: true,
       attrs: {
         align: { default: 'left' },
-        id: { default: '' }
       },
       parseDOM: [
         {
           tag,
           getAttrs(dom) {
-            const attr = {
-              id: dom.getAttribute('id') || uuid()
-            };
+            const attr = {};
             if (dom.style.textAlign) {
               attr['align'] = dom.style.textAlign;
             }
@@ -64,7 +60,6 @@ export default class CustomBlock extends Extension {
           tagName,
           {
             style: `text-align: ${node.attrs.align}`,
-            id: node.attrs.id || uuid(),
             class: className
           },
           0

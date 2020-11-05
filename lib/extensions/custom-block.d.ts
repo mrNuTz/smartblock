@@ -13,19 +13,13 @@ export default class CustomBlock extends Extension {
             align: {
                 default: string;
             };
-            id: {
-                default: string;
-            };
         };
         parseDOM: {
             tag: string;
-            getAttrs(dom: any): {
-                id: any;
-            };
+            getAttrs(dom: any): {};
         }[];
         toDOM(node: any): (string | number | {
             style: string;
-            id: any;
             class: string;
         })[];
     };

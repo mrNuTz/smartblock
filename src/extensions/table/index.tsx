@@ -13,7 +13,6 @@ import {
   tableNodes
 } from 'prosemirror-tables'
 import { setBlockType } from 'prosemirror-commands'
-import * as uuid from 'uuid/v4'
 import { toggleCell } from './util';
 import TableIcon from '../../components/icons/table'
 import LeftInsertIcon from '../../components/icons/left-insert'
@@ -70,28 +69,18 @@ export default class Table extends Extension {
       return this.customSchema;
     }
     schemas.table.parseDOM = [
-      {
-        tag: 'table',
-        getAttrs(dom) {
-          return {
-            id: dom.getAttribute('id') || uuid()
-          }
-        }
-      }
+      { tag: 'table'}
     ]
     schemas.table.toDOM = node => {
       return [
         'table',
         {
-          id: node.attrs.id || uuid(),
           class: this.className
         },
         ['tbody', 0]
       ];
     }
-    schemas.table.attrs = {
-      id: { default: '' }
-    }
+    schemas.table.attrs = {}
     return schemas.table;
   }
 
@@ -124,9 +113,7 @@ export default class Table extends Extension {
   }
 
   onClick(state, dispatch) {
-    const table = createTable(state.schema, {
-      id: uuid()
-    });
+    const table = createTable(state.schema, {});
     const tr = state.tr.replaceSelectionWith(table);
     dispatch(tr);
   }

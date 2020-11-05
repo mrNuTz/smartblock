@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { wrapInList, sinkListItem } from 'prosemirror-schema-list';
-import * as uuid from 'uuid/v4'
 import Undent from '../components/icons/undent';
 import Indent from '../components/icons/indent';
 import List from '../components/icons/list';
@@ -33,25 +32,13 @@ export default class BulletList extends Extension {
       content: 'list_item+',
       group: 'block',
       parseDOM: [
-        {
-          tag: 'ul',
-          getAttrs(dom) {
-            return {
-              id: dom.getAttribute('id')
-            }
-          }
-        }
+        { tag: 'ul' }
       ],
-      attrs: {
-        id: { default: '' }
-      },
+      attrs: {},
       toDOM(node) {
         return [
           'ul',
-          {
-            id: node.attrs.id || uuid(),
-            class: this.className
-          },
+          { class: this.className },
           0
         ]
       }
