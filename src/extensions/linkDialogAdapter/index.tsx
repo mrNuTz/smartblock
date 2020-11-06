@@ -36,13 +36,10 @@ export default class LinkDialogAdapter extends Extension {
     }
     return {
       group: 'mark',
-      attrs: {
-        editing: { default: 'true' },
-        ...(this._attributes.reduce((attrs, attr) => {
-          attrs[attr] = { default: attr === 'href' ? '' : null }
-          return attrs
-        }, {}))
-      },
+      attrs: (this._attributes.concat('editing').reduce((attrs, attr) => {
+        attrs[attr] = { default: '' }
+        return attrs
+      }, {})),
       inclusive: false,
       parseDOM: [
         {
