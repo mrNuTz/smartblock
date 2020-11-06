@@ -42,4 +42,5 @@ import Heading3Icon from './components/icons/heading3';
 import Heading4Icon from './components/icons/heading4';
 import Heading5Icon from './components/icons/heading5';
 import Heading6Icon from './components/icons/heading6';
+import 'prosemirror-view/style/prosemirror.css';
 export { SmartBlock, Button, EditMenu, Editor, InlineMenu, Menu, Extensions, Link, LinkDialogAdapter, Image, BulletList, CustomBlock, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, ListItem, MoveDown, MoveUp, OrderedList, Paragraph, Blockquote, Table, Embed, Code, Emphasis, Strike, Strong, Underline, CustomMark, Trash, getViewport, isInput, markActive, blockActive, canInsert, findNodePosition, findSelectedNodeWithType, getParentNodePosFromState, createTable, liftListItem, Dispatch, Extension, DefaultKeys, DefaultPlugins, Plugin, Heading1Icon, Heading2Icon, Heading3Icon, Heading4Icon, Heading5Icon, Heading6Icon };
