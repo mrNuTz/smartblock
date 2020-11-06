@@ -46,6 +46,7 @@ export const useView = (props: EditorProps): EditorView => {
     props.onChange(view.state, view.dispatch)
     return view
   }, [])
+  useEffect(() => () => instance.destroy(), [])
   return instance
 }
 

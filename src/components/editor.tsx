@@ -32,6 +32,11 @@ export default (props: EditorProps) => {
     if (props.autoFocus) {
       view.focus();
     }
+    return () => {
+      if (editorRef.current) {
+        editorRef.current.removeChild(view.dom);
+      }
+    }
   }, [])
 
   const scrolling = useScrolling(editorRef, 300);
