@@ -10,24 +10,14 @@ export default class Paragraph extends Extension {
         group: string;
         parseDOM: {
             tag: string;
-            getAttrs(dom: any): {};
         }[];
-        attrs: {
-            align: {
-                default: string;
-            };
-        };
-        toDOM: (node: any) => (string | number | {
-            style: string;
+        attrs: {};
+        toDOM: () => (string | number | {
             class: string;
         })[];
     };
     get icon(): JSX.Element;
     active(state: any): boolean;
     enable(state: any): boolean;
-    customMenu({ state, dispatch }: {
-        state: any;
-        dispatch: any;
-    }): JSX.Element;
     onClick(state: any, dispatch: any): void;
 }

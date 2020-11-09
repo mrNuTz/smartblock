@@ -1,12 +1,8 @@
 import * as React from 'react'
 import { setBlockType } from 'prosemirror-commands'
 import ParagraphIcon from '../components/icons/paragraph'
-import AlignLeftIcon from '../components/icons/align-left'
-import AlignCenterIcon from '../components/icons/align-center'
-import AlignRightIcon from '../components/icons/align-right'
 import { Extension, ExtensionProps } from '../types'
-import { blockActive, getParentNodeFromState } from '../utils'
-import Button from '../components/button'
+import { blockActive } from '../utils'
 
 export default class Paragraph extends Extension {
   constructor(props?: ExtensionProps) {
@@ -32,31 +28,9 @@ export default class Paragraph extends Extension {
     return {
       content: 'inline*',
       group: 'block',
-      parseDOM: [
-        {
-          tag: 'p',
-          getAttrs(dom) {
-            const attr = {};
-            if (dom.style.textAlign) {
-              attr['align'] = dom.style.textAlign;
-            }
-            return attr;
-          }
-        }
-      ],
-      attrs: {
-        align: { default: 'left' },
-      },
-      toDOM: node => {
-        return [
-          'p',
-          {
-            style: `text-align: ${node.attrs.align}`,
-            class: this.className
-          },
-          0
-        ]
-      }
+      parseDOM: [{ tag: 'p' }],
+      attrs: {},
+      toDOM: () => ['p', { class: this.className }, 0]
     }
   }
 
@@ -70,47 +44,6 @@ export default class Paragraph extends Extension {
 
   enable(state) {
     return setBlockType(state.schema.nodes.paragraph)(state);
-  }
-
-  customMenu({ state, dispatch }) {
-    const node = getParentNodeFromState(state);
-    return (
-      <>
-        <Button
-          type="button"
-          active={node && node.attrs.align === 'left'}
-          onClick={() => {
-            setBlockType(state.schema.nodes.paragraph, {
-              align: 'left'
-            })(state, dispatch);
-          }}
-        >
-          <AlignLeftIcon style={{ width: '24px', height: '24px' }} />
-        </Button>
-        <Button
-          type="button"
-          active={node && node.attrs.align === 'center'}
-          onClick={() => {
-            setBlockType(state.schema.nodes.paragraph, {
-              align: 'center'
-            })(state, dispatch);
-          }}
-        >
-          <AlignCenterIcon style={{ width: '24px', height: '24px' }} />
-        </Button>
-        <Button
-          type="button"
-          active={node && node.attrs.align === 'right'}
-          onClick={() => {
-            setBlockType(state.schema.nodes.paragraph, {
-              align: 'right'
-            })(state, dispatch);
-          }}
-        >
-          <AlignRightIcon style={{ width: '24px', height: '24px' }} />
-        </Button>
-      </>
-    )
   }
 
   onClick(state, dispatch) {

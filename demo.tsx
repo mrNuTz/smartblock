@@ -1,27 +1,125 @@
 import SmartBlock from './src/adapter';
-import extensions from './src/extensions/';
 import Code from './src/extensions/code';
 import Image from './src/extensions/image';
-import markdown from './sample';
+import LinkDialogAdaper from './src/extensions/linkDialogAdapter';
 import * as showdown from 'showdown';
 import './css/smartblock.css';
 
-extensions.push(new Code());
-extensions.push(new Image({
-  imgClassName: 'small',
-  withCaption: false,
-  imgFullClassName: 'full',
-}))
+import Paragraph from './src/extensions/paragraph';
+import Trash from './src/extensions/trash';
+import MoveUp from './src/extensions/move-up';
+import MoveDown from './src/extensions/move-down';
+import Heading2 from './src/extensions/heading2';
+import Heading3 from './src/extensions/heading3';
+import ListItem from './src/extensions/list-item';
+import BulletList from './src/extensions/bullet-list';
+import OrderedList from './src/extensions/ordered-list';
+import Embed from './src/extensions/embed';
+import Table from './src/extensions/table';
+import Blockquote from './src/extensions/blockquote';
+import Strong from './src/extensions/strong';
+import Emphasis from './src/extensions/emphasis';
+import Underline from './src/extensions/underline';
+import Strike from './src/extensions/strike';
+import DefaultKeys from './src/extensions/default-keys';
+import DefaultPlugins from './src/extensions/default-plugins';
+import { Extension } from './src/types/';
+
+let dialog = null
+const openDialog = (() => {
+  let onOKCl
+  let onCancelCl
+
+  return (onOK, onCancel, link) => {
+    if (!dialog) {
+      const div = document.createElement('div')
+      div.style.position = 'absolute'
+      div.style.left = '50%'
+      div.style.top = '50%'
+      document.body.append(div)
+      const input = document.createElement('input')
+      input.style.width = '200px';
+      div.append(input)
+      const ok = document.createElement('button')
+      ok.innerHTML = 'OK'
+      div.append(ok)
+      const cancel = document.createElement('button')
+      cancel.innerHTML = 'Cancel'
+      div.append(cancel)
+
+      ok.addEventListener('click', () => {
+        onOKCl({ title: 'foo', href: input.value })
+        div.style.display = 'none'
+      })
+      cancel.addEventListener('click', () => {
+        onCancelCl()
+        div.style.display = 'none'
+      })
+
+      dialog = { div, input, ok, cancel }
+    }
+    onOKCl = onOK
+    onCancelCl = onCancel
+    dialog.input.value = link.href
+    dialog.div.style.display = 'block'
+
+    return dialog
+  }
+})()
+
+const extensions = [
+  // blocks
+  new Paragraph(),
+  new Heading2(),
+  new Heading3(),
+  new ListItem(),
+  new BulletList(),
+  new OrderedList(),
+  new Embed(),
+  // new Code(),
+  new Table(),
+  new Blockquote(),
+  // marks
+  new Strong(),
+  new Emphasis(),
+  new Underline(),
+  new Strike(),
+  // utility
+  new MoveDown(),
+  new MoveUp(),
+  new Trash(),
+  // default
+  new DefaultKeys(),
+  new DefaultPlugins({
+    placeholder: 'Content here...'
+  }),
+
+  new Code(),
+  new Image({
+    imgClassName: 'small',
+    withCaption: false,
+    imgFullClassName: 'full',
+  }),
+  new LinkDialogAdaper({
+    attributes: ['title', 'href', 'foo'],
+    openDialog
+  }),
+] as Extension[]
+
 
 SmartBlock('#app', {
-  showTitle: true,
-  titlePlaceholder: 'ここにタイトルを入力',
-  markdown,
+  markdown: `
+## headline
+
+a paragraph foo bar
+
+- ul.li some text
+
+1. ol.li some text
+`,
   showdown,
-  outputMarkdown: true,
   extensions,
-  onChange: ({ markdown }) => {
-  }
+  onChange: ({ json, html }) => console.log('onChange', html, json)
 });
 
 // JSX version
@@ -31,10 +129,10 @@ SmartBlock('#app', {
 // import extensions from './src/extensions';
 // ​
 // render(<>
-//   <SmartBlock 
-// 	extensions={extensions} 
-// 	html="html" 
-// 	showTitle={true} 
+//   <SmartBlock
+// 	extensions={extensions}
+// 	html="html"
+// 	showTitle={true}
 // 	onChange={({html}) => console.log(html)}
 //   />
 // </>,
