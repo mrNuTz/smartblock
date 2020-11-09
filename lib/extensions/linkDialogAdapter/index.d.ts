@@ -18,11 +18,7 @@ export default class LinkDialogAdapter extends Extension {
     constructor(props?: config);
     get schema(): import("../../types").ExtensionSchema | {
         group: string;
-        attrs: {
-            editing: {
-                default: string;
-            };
-        };
+        attrs: {};
         inclusive: boolean;
         parseDOM: {
             tag: string;

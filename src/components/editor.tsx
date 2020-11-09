@@ -26,11 +26,18 @@ export default (props: EditorProps) => {
   const view = useView(props);
 
   useEffect(() => {
+    let node
     if (editorRef.current) {
+      node = view.dom;
       editorRef.current.appendChild(view.dom);
     }
     if (props.autoFocus) {
       view.focus();
+    }
+    return () => {
+      if (node) {
+        node.remove();
+      }
     }
   }, [])
 

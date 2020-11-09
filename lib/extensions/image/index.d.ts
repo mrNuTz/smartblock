@@ -31,9 +31,6 @@ export default class Image extends Extension {
             size: {
                 default: string;
             };
-            id: {
-                default: string;
-            };
             caption: {
                 default: string;
             };
@@ -42,11 +39,9 @@ export default class Image extends Extension {
             tag: string;
             getAttrs(dom: any): {
                 src?: undefined;
-                id?: undefined;
                 size?: undefined;
             } | {
                 src: any;
-                id: any;
                 size: string;
             };
         }[];

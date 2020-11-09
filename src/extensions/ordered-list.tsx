@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { wrapInList, sinkListItem } from 'prosemirror-schema-list';
-import * as uuid from 'uuid/v4'
 import OrderedListIcon from '../components/icons/ordered-list';
 import IndentIcon from '../components/icons/indent';
 import UndentIcon from '../components/icons/undent';
@@ -34,23 +33,15 @@ export default class OrderedList extends Extension {
       content: 'list_item+',
       group: 'block',
       parseDOM: [
-        {
-          tag: 'ol',
-          getAttrs(dom) {
-            return {
-              id: dom.getAttribute('id')
-            }
-          }
+        {tag: 'ol'
         }
       ],
       attrs: {
-        id: { default: '' }
       },
       toDOM(node) {
         return [
           'ol',
           {
-            id: node.attrs.id || uuid(),
             class: this.className
           },
           0

@@ -58,6 +58,7 @@ import Heading4Icon from './components/icons/heading4'
 import Heading5Icon from './components/icons/heading5'
 import Heading6Icon from './components/icons/heading6'
 
+import 'prosemirror-view/style/prosemirror.css'
 
 export {
   /* components */

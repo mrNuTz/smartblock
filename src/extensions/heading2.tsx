@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { setBlockType } from 'prosemirror-commands';
-import * as uuid from 'uuid/v4'
 import HeadingIcon from '../components/icons/heading2';
 import AlignLeftIcon from '../components/icons/align-left';
 import AlignCenterIcon from '../components/icons/align-center';
@@ -38,9 +37,7 @@ export default class Heading2 extends Extension {
         {
           tag: 'h2',
           getAttrs(dom) {
-            const attr = {
-              id: dom.getAttribute('id') || uuid()
-            };
+            const attr = {};
             if (dom.style.textAlign) {
               attr['align'] = dom.style.textAlign;
             }
@@ -50,14 +47,12 @@ export default class Heading2 extends Extension {
       ],
       attrs: {
         align: { default: 'left' },
-        id: { default: '' }
       },
       toDOM(node) {
         return [
           'h2',
           {
             style: `text-align: ${node.attrs.align}`,
-            id: node.attrs.id || uuid(),
             class: this.className
           },
           0
