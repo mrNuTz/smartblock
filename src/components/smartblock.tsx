@@ -338,14 +338,21 @@ export default (props: AppProps) => {
     return uuid();
   }, []);
 
+  useEffect(() => {
+    if (showMenus)
+      document.body.classList.remove('smartblock-hideMenus');
+    else
+      document.body.classList.add('smartblock-hideMenus');
+  },[showMenus]);
+
   const container = useRef<HTMLDivElement>(null);
   const blocks = getBlocks(extensions)
   const marks = getMarks(extensions)
   const edits = getEdits(extensions)
   const nodeViews = getNodeViews(extensions)
 
-  return (<div 
-    id={containerId} 
+  return (<div
+    id={containerId}
     onClick={(e) => {
       const target = e.target as HTMLDivElement;
       if (target.getAttribute('id') === containerId) {
@@ -359,11 +366,11 @@ export default (props: AppProps) => {
     <div className={classNames('smartblock-container', {
       'is-full': props.full
     })}>
-      {props.showTitle && 
-        <Title 
+      {props.showTitle &&
+        <Title
           onChange={(title) => {
             titleChanged(title, props);
-          }} 
+          }}
           defaultValue={titleText}
           placeholder={props.titlePlaceholder}
         />
