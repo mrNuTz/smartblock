@@ -88,7 +88,7 @@ export default class Image extends Extension {
           }
         }
       ],
-      toDOM: (node) => {
+      toDOM: (node) => { // backend render
         return [
           "figure",
           {

@@ -9,8 +9,10 @@ import Paragraph from './src/extensions/paragraph';
 import Trash from './src/extensions/trash';
 import MoveUp from './src/extensions/move-up';
 import MoveDown from './src/extensions/move-down';
+import Heading1 from './src/extensions/heading1';
 import Heading2 from './src/extensions/heading2';
 import Heading3 from './src/extensions/heading3';
+import Heading4 from './src/extensions/heading4';
 import ListItem from './src/extensions/list-item';
 import BulletList from './src/extensions/bullet-list';
 import OrderedList from './src/extensions/ordered-list';
@@ -24,6 +26,8 @@ import Strike from './src/extensions/strike';
 import DefaultKeys from './src/extensions/default-keys';
 import DefaultPlugins from './src/extensions/default-plugins';
 import { Extension } from './src/types/';
+
+import testContent from './testContent'
 
 let dialog = null
 const openDialog = (() => {
@@ -70,8 +74,10 @@ const openDialog = (() => {
 const extensions = [
   // blocks
   new Paragraph(),
+  new Heading1(),
   new Heading2(),
   new Heading3(),
+  new Heading4(),
   new ListItem(),
   new BulletList(),
   new OrderedList(),
@@ -97,7 +103,7 @@ const extensions = [
   new Code(),
   new Image({
     imgClassName: 'small',
-    withCaption: false,
+    withCaption: true,
     imgFullClassName: 'full',
   }),
   new LinkDialogAdaper({
@@ -108,18 +114,10 @@ const extensions = [
 
 
 SmartBlock('#app', {
-  markdown: `
-## headline
-
-a paragraph foo bar
-
-- ul.li some text
-
-1. ol.li some text
-`,
+  json: testContent,
   showdown,
   extensions,
-  onChange: ({ json, html }) => console.log('onChange', html, json)
+  onChange: ({ json }) => console.log('onChange', json)
 });
 
 // JSX version

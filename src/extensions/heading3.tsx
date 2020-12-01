@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { setBlockType } from 'prosemirror-commands';
-import HeadingIcon from '../components/icons/heading3';
 import AlignLeftIcon from '../components/icons/align-left';
 import AlignCenterIcon from '../components/icons/align-center';
 import AlignRightIcon from '../components/icons/align-right';
@@ -62,7 +61,7 @@ export default class Heading3 extends Extension {
   }
 
   get icon() {
-    return <HeadingIcon style={{ width: '24px', height: '24px' }} />
+    return <strong style={{ fontFamily: 'sans-serif' }}>H<sub>S</sub></strong>
   }
 
   active(state) {
