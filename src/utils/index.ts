@@ -8,7 +8,8 @@ import {
   NodeRange,
   DOMSerializer,
   Schema,
-  Mark
+  Mark,
+  NodeType
 } from 'prosemirror-model';
 import { liftTarget, ReplaceAroundStep } from 'prosemirror-transform';
 import { Dispatch } from '../types';
@@ -85,7 +86,7 @@ export const markActive = type => state => {
     : state.doc.rangeHasMark(from, to, type);
 }
 
-export const getMarkInSelection = (markName: string, state: EditorState): Mark|null => {
+export const getMarkInSelection = (markName: string, state: EditorState): Mark | null => {
   const { from, to, $from, empty } = state.selection;
   if (empty)
     return (state.storedMarks || $from.marks()).find(mark => (mark.type.name === markName))
@@ -225,6 +226,29 @@ export const findSelectedNodeWithType = (nodeType, state) => {
   return applicableNode;
 }
 
+export function setNodeMarkup(nodeType: NodeType, attrs: { [attr: string]: any }) {
+  return function (state: EditorState, dispatch: Dispatch): boolean {
+    let { from, to } = state.selection
+    let applicable = false
+    let _pos = 0
+    state.doc.nodesBetween(from, to, (node, pos) => {
+      if (applicable) return false
+      if (node.hasMarkup(nodeType, attrs)) return
+      if (node.type == nodeType) {
+        applicable = true
+        _pos = pos
+      } else {
+        let $pos = state.doc.resolve(pos), index = $pos.index()
+        applicable = $pos.parent.canReplaceWith(index, index + 1, nodeType)
+        _pos = pos
+      }
+    })
+    if (!applicable) return false
+    if (dispatch) dispatch(state.tr.setNodeMarkup(_pos, nodeType, attrs).scrollIntoView())
+    return true
+  }
+}
+
 function liftToOuterList(state, dispatch, itemType, range) {
   const { tr } = state;
   const { end } = range;
@@ -308,7 +332,7 @@ function liftOutOfList(state, dispatch, range) {
 }
 
 export const liftListItem = itemType => {
-  return function(state: EditorState, dispatch?: Dispatch) {
+  return function (state: EditorState, dispatch?: Dispatch) {
     const { $from, $to } = state.selection;
     const range = $from.blockRange(
       $to,

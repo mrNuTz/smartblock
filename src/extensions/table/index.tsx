@@ -23,10 +23,12 @@ import SplitIcon from '../../components/icons/split'
 import MergeIcon from '../../components/icons/merge'
 import RemoveRowIcon from '../../components/icons/remove-row';
 import RemoveColIcon from '../../components/icons/remove-col';
+import FullIcon from '../image/full-icon';
 
-import { createTable, blockActive } from '../../utils'
+import { createTable, blockActive, findSelectedNodeWithType, setNodeMarkup } from '../../utils'
 import { Extension, ExtensionProps } from '../../types'
 import Button from '../../components/button'
+import { EditorView } from 'prosemirror-view';
 
 const schemas = tableNodes({
   group: 'block',
@@ -68,19 +70,30 @@ export default class Table extends Extension {
     if (this.customSchema) {
       return this.customSchema;
     }
-    schemas.table.parseDOM = [
-      { tag: 'table'}
-    ]
+    schemas.table.parseDOM = [{
+      tag: 'table',
+      getAttrs(dom) {
+        const table = dom.querySelector('table');
+        if (!table) {
+          return {}
+        }
+        return {
+          wide: table.classList.contains('wide')
+        }
+      }
+    }]
     schemas.table.toDOM = node => {
       return [
         'table',
         {
-          class: this.className
+          class: (this.className || '') + (node.attrs.wide ? ' wide' : '')
         },
         ['tbody', 0]
       ];
     }
-    schemas.table.attrs = {}
+    schemas.table.attrs = {
+      wide: { default: false }
+    }
     return schemas.table;
   }
 
@@ -159,7 +172,8 @@ export default class Table extends Extension {
     </>)
   }
 
-  customMenu({ state, dispatch }) {
+  customMenu({ state, dispatch }: EditorView) {
+    const node = findSelectedNodeWithType(state.schema.nodes.table, state);
     return (
       <>
         <Button
@@ -210,6 +224,19 @@ export default class Table extends Extension {
           }}
         >
           <RemoveRowIcon style={{ width: '24px', height: '24px' }} />
+        </Button>
+        <Button
+          type="button"
+          onClick={() =>
+            setNodeMarkup(
+              node.type, { ...node.attrs, wide: !node.attrs.wide }
+            )(state, dispatch)
+          }
+        >
+          <FullIcon style={{
+            width: '24px', height: '24px',
+            color: node.attrs.wide ? '#005CEE' : null,
+          }} />
         </Button>
       </>
     )
