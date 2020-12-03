@@ -1,6 +1,6 @@
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { Node, Schema, Mark } from 'prosemirror-model';
+import { Node, Schema, Mark, NodeType } from 'prosemirror-model';
 import { Dispatch } from '../types';
 export declare const getScrollTop: () => number;
 export declare const getScrollLeft: () => number;
@@ -34,6 +34,9 @@ export declare const getParentNodeIndexFromState: (state: EditorState) => number
 export declare const getParentNodeFromState: (state: EditorState) => Node<any>;
 export declare const getParentNodePosFromState: (state: EditorState) => number;
 export declare const findSelectedNodeWithType: (nodeType: any, state: any) => any;
+export declare function setNodeMarkup(nodeType: NodeType, attrs: {
+    [attr: string]: any;
+}): (state: EditorState, dispatch: Dispatch) => boolean;
 export declare const liftListItem: (itemType: any) => (state: EditorState, dispatch?: Dispatch) => boolean;
 export declare const createTable: (schema: any, attrs: any, rowsCount?: number, colsCount?: number, withHeaderRow?: boolean, cellContent?: any) => any;
 export declare const calculateStyle: (view: EditorView, offset?: {

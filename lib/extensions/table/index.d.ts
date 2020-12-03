@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import { Extension, ExtensionProps } from '../../types';
+import { EditorView } from 'prosemirror-view';
 export default class Table extends Extension {
     constructor(props?: ExtensionProps);
     get name(): string;
@@ -17,10 +18,7 @@ export default class Table extends Extension {
         state: any;
         dispatch: any;
     }): JSX.Element;
-    customMenu({ state, dispatch }: {
-        state: any;
-        dispatch: any;
-    }): JSX.Element;
+    customMenu({ state, dispatch }: EditorView): JSX.Element;
     keys(): {
         Tab: any;
         'Shift-Tab': any;
