@@ -1,6 +1,6 @@
 import SmartBlock from './src/adapter';
 import Code from './src/extensions/code';
-import Image from './src/extensions/image';
+import ImageDialogAdapter from './src/extensions/imageDialogAdapter';
 import LinkDialogAdaper from './src/extensions/linkDialogAdapter';
 import * as showdown from 'showdown';
 import './css/smartblock.css';
@@ -30,11 +30,11 @@ import { Extension } from './src/types/';
 import testContent from './testContent'
 
 let dialog = null
-const openDialog = (() => {
+const getDialog = (attr) => {
   let onOKCl
   let onCancelCl
 
-  return (onOK, onCancel, link) => {
+  return (onOK, onCancel, attrs) => {
     if (!dialog) {
       const div = document.createElement('div')
       div.style.position = 'absolute'
@@ -52,7 +52,7 @@ const openDialog = (() => {
       div.append(cancel)
 
       ok.addEventListener('click', () => {
-        onOKCl({ title: 'foo', href: input.value })
+        onOKCl({ title: 'foo', foo: 'bar', [attr]: input.value })
         div.style.display = 'none'
       })
       cancel.addEventListener('click', () => {
@@ -64,12 +64,15 @@ const openDialog = (() => {
     }
     onOKCl = onOK
     onCancelCl = onCancel
-    dialog.input.value = link.href
+    dialog.input.value = attrs[attr]
     dialog.div.style.display = 'block'
 
     return dialog
   }
-})()
+}
+
+const openLinkDialog = getDialog('href')
+const openImageDialog = getDialog('src')
 
 const extensions = [
   // blocks
@@ -99,16 +102,14 @@ const extensions = [
   new DefaultPlugins({
     placeholder: 'Content here...'
   }),
-
   new Code(),
-  new Image({
-    imgClassName: 'small',
-    withCaption: true,
-    imgFullClassName: 'full',
-  }),
   new LinkDialogAdaper({
-    attributes: ['title', 'href', 'foo'],
-    openDialog
+    attributes: ['title', 'href'],
+    openDialog: openLinkDialog,
+  }),
+  new ImageDialogAdapter({
+    attributes: ['title', 'src'],
+    openDialog: openImageDialog,
   }),
 ] as Extension[]
 

@@ -33,7 +33,7 @@ export declare const getParentNodeWithPosFromState: (state: EditorState) => impo
 export declare const getParentNodeIndexFromState: (state: EditorState) => number;
 export declare const getParentNodeFromState: (state: EditorState) => Node<any>;
 export declare const getParentNodePosFromState: (state: EditorState) => number;
-export declare const findSelectedNodeWithType: (nodeType: any, state: any) => any;
+export declare const findSelectedNodeWithType: (nodeType: NodeType, state: EditorState) => Node;
 export declare function setNodeMarkup(nodeType: NodeType, attrs: {
     [attr: string]: any;
 }): (state: EditorState, dispatch: Dispatch) => boolean;

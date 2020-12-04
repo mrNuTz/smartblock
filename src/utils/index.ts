@@ -211,7 +211,7 @@ export const getParentNodePosFromState = (state: EditorState) => {
   return pos + node.nodeSize;
 }
 
-export const findSelectedNodeWithType = (nodeType, state) => {
+export const findSelectedNodeWithType = (nodeType: NodeType, state: EditorState): Node => {
   const { from, to } = state.selection;
   const applicable = false;
   let applicableNode = null;
