@@ -213,7 +213,7 @@ export const getParentNodePosFromState = (state: EditorState) => {
 
 export const findSelectedNodeWithType = (nodeType: NodeType, state: EditorState): Node => {
   const { from, to } = state.selection;
-  const applicable = false;
+  let applicable = false;
   let applicableNode = null;
   state.doc.nodesBetween(from, to, node => {
     if (applicable) {
@@ -221,6 +221,7 @@ export const findSelectedNodeWithType = (nodeType: NodeType, state: EditorState)
     }
     if (node.type === nodeType) {
       applicableNode = node
+      applicable = true
     }
   });
   return applicableNode;

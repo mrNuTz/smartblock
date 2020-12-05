@@ -174,6 +174,7 @@ export default class Table extends Extension {
 
   customMenu({ state, dispatch }: EditorView) {
     const node = findSelectedNodeWithType(state.schema.nodes.table, state);
+    if (!node) return null
     return (
       <>
         <Button

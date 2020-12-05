@@ -23,6 +23,7 @@ import { Dispatch, Extension } from './types'
 import Link from './extensions/link'
 import LinkDialogAdapter from './extensions/linkDialogAdapter'
 import Image from './extensions/image'
+import ImageDialogAdapter from './extensions/imageDialogAdapter'
 import BulletList from './extensions/bullet-list'
 import CustomBlock from './extensions/custom-block'
 import CustomMark from './extensions/custom-mark'
@@ -76,6 +77,7 @@ export {
   Link,
   LinkDialogAdapter,
   Image,
+  ImageDialogAdapter,
   BulletList,
   CustomBlock,
   Heading1,
