@@ -16,7 +16,7 @@ type ButtonProps = {
 export default (props: ButtonProps) => {
 
   if (props.tag === 'label') {
-    return <label 
+    return <label
     style={props.style}
     className={classNames(props.className, 'smartblock-btn', {
     'is-active': props.active,
@@ -25,8 +25,9 @@ export default (props: ButtonProps) => {
   })}>{props.children}</label>
   }
 
-  return <button 
-    type={props.type} 
+  return <button
+    disabled={props.disabled}
+    type={props.type}
     style={props.style}
     onClick={props.onClick}
     className={classNames(props.className, 'smartblock-btn', {

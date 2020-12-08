@@ -74,11 +74,9 @@ export default class LinkDialogAdapter extends Extension {
   }
 
   onClick(state: EditorState, dispatch) {
-    if (!markActive(state.schema.marks.link)(state)) {
-      toggleMark(state.schema.marks.link, { href: '', editing: 'true' })(
-        state,
-        dispatch
-      )
-    }
+    toggleMark(state.schema.marks.link, { href: '', editing: 'true' })(
+      state,
+      dispatch
+    )
   }
 }
