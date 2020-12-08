@@ -1,6 +1,7 @@
 import SmartBlock from './src/adapter';
 import Code from './src/extensions/code';
 import ImageDialogAdapter from './src/extensions/imageDialogAdapter';
+import ImageWithText from './src/extensions/imageWithText';
 import LinkDialogAdaper from './src/extensions/linkDialogAdapter';
 import * as showdown from 'showdown';
 import './css/smartblock.css';
@@ -29,15 +30,15 @@ import { Extension } from './src/types/';
 
 import testContent from './testContent'
 
-let dialog = null
 const getDialog = (attr) => {
   let onOKCl
   let onCancelCl
+  let dialog = null
 
   return (onOK, onCancel, attrs) => {
     if (!dialog) {
       const div = document.createElement('div')
-      div.style.position = 'absolute'
+      div.style.position = 'fixed'
       div.style.left = '50%'
       div.style.top = '50%'
       document.body.append(div)
@@ -73,6 +74,7 @@ const getDialog = (attr) => {
 
 const openLinkDialog = getDialog('href')
 const openImageDialog = getDialog('src')
+const openImageTextDialog = getDialog('src')
 
 const extensions = [
   // blocks
@@ -110,6 +112,10 @@ const extensions = [
   new ImageDialogAdapter({
     attributes: ['title', 'src'],
     openDialog: openImageDialog,
+  }),
+  new ImageWithText({
+    attributes: ['title', 'src'],
+    openDialog: openImageTextDialog,
   }),
 ] as Extension[]
 

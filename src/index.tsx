@@ -24,6 +24,7 @@ import Link from './extensions/link'
 import LinkDialogAdapter from './extensions/linkDialogAdapter'
 import Image from './extensions/image'
 import ImageDialogAdapter from './extensions/imageDialogAdapter'
+import ImageWithText from './extensions/imageWithText'
 import BulletList from './extensions/bullet-list'
 import CustomBlock from './extensions/custom-block'
 import CustomMark from './extensions/custom-mark'
@@ -78,6 +79,7 @@ export {
   LinkDialogAdapter,
   Image,
   ImageDialogAdapter,
+  ImageWithText,
   BulletList,
   CustomBlock,
   Heading1,

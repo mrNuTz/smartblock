@@ -1,11 +1,12 @@
 import * as React from 'react';
+import FloatImageIcon from '../../components/icons/float-image';
 import ImageIcon from '../image/image-icon';
-import { blockActive, findSelectedNodeWithType, getParentNodeFromState } from '../../utils';
+import { blockActive, findSelectedNodeWithType, setNodeMarkup } from '../../utils';
 import { Extension, Dispatch } from '../../types'
-import { setBlockType } from 'prosemirror-commands';
 import { EditorState } from 'prosemirror-state';
 import { MediaPlugin } from '../image/plugins';
 import Button from '../../components/button';
+import { wrapInList } from 'prosemirror-schema-list';
 
 export type Attributes = { [attr: string]: string }
 export type OpenDialogFn = (onOK: (attrs: Attributes) => void, onCancel: () => void, attrs: Attributes) => void
@@ -14,8 +15,8 @@ type Props = {
   attributes: string[];
 }
 
-export default class ImageDialogAdapter extends Extension {
-  name = 'image'
+export default class ImageWithText extends Extension {
+  name = 'image_with_text'
   showMenu = true
   group = 'block'
   hideBlockMenuOnFocus = true
@@ -30,40 +31,37 @@ export default class ImageDialogAdapter extends Extension {
 
   get schema() {
     return {
-      content: 'inline*',
-      isolating: true,
+      content: 'paragraph block*',
       group: 'block',
-      selectable: true,
       attrs: this._attributes.reduce((attrs, attr) => {
         attrs[attr] = { default: '' }
         return attrs
       }, {}),
       parseDOM: [{
-        tag: 'figure',
+        tag: 'section',
         getAttrs: dom => {
-          const attrs = this._attributes.reduce((attrs, attr) => {
-            attrs[attr] = dom.getAttribute(attr)
+          const img = dom.querySelector('img');
+          return img ? this._attributes.reduce((attrs, attr) => {
+            const a = img.getAttribute(attr)
+            if (a) attrs[attr] = a
             return attrs
-          }, {})
-          return {
-            ...attrs,
-            src: dom.querySelector('img').getAttribute('src'),
-          }
+          }, {}) : {}
         }
       }],
       toDOM: (node) => {
-        const { src, ...attrs } = node.attrs
-        return ['figure', attrs,
-          ['img', { src }],
-          ['figcaption', { class: 'caption' }, 0],
+        return ['section', {},
+          ['figure', { class: 'img-float-left' }, ['img', node.attrs]],
+          ['main', {}, 0],
         ];
       }
     };
   }
 
   openDialog = (state: EditorState, dispatch: Dispatch) => {
-    const node = findSelectedNodeWithType(state.schema.nodes.image, state);
-    const onOk = (attrs) => setBlockType(state.schema.nodes.image, attrs)(state, dispatch);
+    const node = findSelectedNodeWithType(state.schema.nodes.image_with_text, state);
+    const onOk = (attrs) => node
+      ? setNodeMarkup(state.schema.nodes.image_with_text, attrs)(state, dispatch)
+      : wrapInList(state.schema.nodes.image_with_text, attrs)(state, dispatch);
     const onCancel = () => { }
     this._openDialog(onOk, onCancel, { ...node?.attrs })
   }
@@ -94,17 +92,13 @@ export default class ImageDialogAdapter extends Extension {
     );
   }
   active(state) {
-    return blockActive(state.schema.nodes.image)(state);
+    return blockActive(state.schema.nodes.image_with_text)(state);
   }
   enable(state) {
-    const node = getParentNodeFromState(state)
-    if (node.type.name !== 'paragraph') {
-      return false;
-    }
-    return setBlockType(state.schema.nodes.image)(state);
+    return wrapInList(state.schema.nodes.image_with_text)(state);
   }
   get icon() {
-    return <ImageIcon style={{ width: '24px', height: '24px' }} />;
+    return <FloatImageIcon style={{ width: '24px', height: '24px' }} />;
   }
   get plugins() {
     return [MediaPlugin()]

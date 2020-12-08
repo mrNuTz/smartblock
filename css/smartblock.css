@@ -623,6 +623,21 @@
   border-radius: 5px;
   color: #FFF; }
 
+.ProseMirror section .img-float-left {
+  float: left;
+  padding-right: 1rem;
+  width: 40%;
+  height: auto; }
+  .ProseMirror section .img-float-left img {
+    width: 100%;
+    height: auto;
+    min-height: 3rem; }
+
+.ProseMirror section:after {
+  content: "";
+  display: table;
+  clear: both; }
+
 /* a11y-dark theme */
 /* Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css */
 /* @author: ericwbailey */
