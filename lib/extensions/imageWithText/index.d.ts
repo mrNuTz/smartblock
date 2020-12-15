@@ -8,6 +8,7 @@ export declare type OpenDialogFn = (onOK: (attrs: Attributes) => void, onCancel:
 declare type Props = {
     openDialog: OpenDialogFn;
     attributes: string[];
+    previewSrcFromAttrs?: (attrs: Attributes) => string;
 };
 export default class ImageWithText extends Extension {
     name: string;
@@ -16,7 +17,8 @@ export default class ImageWithText extends Extension {
     hideBlockMenuOnFocus: boolean;
     private _openDialog;
     private _attributes;
-    constructor({ openDialog, attributes, ...props }: Props);
+    private _previewSrcFromAttrs;
+    constructor({ openDialog, attributes, previewSrcFromAttrs, ...props }: Props);
     get schema(): {
         content: string;
         group: string;

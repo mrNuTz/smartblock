@@ -13,6 +13,7 @@ export type OpenDialogFn = (onOK: (attrs: Attributes) => void, onCancel: () => v
 type Props = {
   openDialog: OpenDialogFn;
   attributes: string[];
+  previewSrcFromAttrs?: (attrs: Attributes) => string;
 }
 
 export default class ImageWithText extends Extension {
@@ -22,11 +23,13 @@ export default class ImageWithText extends Extension {
   hideBlockMenuOnFocus = true
   private _openDialog: OpenDialogFn
   private _attributes: string[]
+  private _previewSrcFromAttrs: (attrs: Attributes) => string
 
-  constructor({ openDialog, attributes, ...props }: Props) {
+  constructor({ openDialog, attributes, previewSrcFromAttrs, ...props }: Props) {
     super(props);
     this._openDialog = openDialog
     this._attributes = attributes.includes('src') ? attributes : attributes.concat('src')
+    this._previewSrcFromAttrs = previewSrcFromAttrs || (({ src }) => src)
   }
 
   get schema() {
@@ -41,16 +44,19 @@ export default class ImageWithText extends Extension {
         tag: 'section',
         getAttrs: dom => {
           const img = dom.querySelector('img');
-          return img ? this._attributes.reduce((attrs, attr) => {
+          return img ? this._attributes.concat('_src').reduce((attrs, attr) => {
+            if (attr === 'src') return attrs
             const a = img.getAttribute(attr)
-            if (a) attrs[attr] = a
+            if (a) attrs[attr === '_src' ? 'src' : attr] = a
             return attrs
           }, {}) : {}
         }
       }],
       toDOM: (node) => {
+        const src = this._previewSrcFromAttrs(node.attrs)
+        const { src: _src, ...attrs } = node.attrs
         return ['section', {},
-          ['figure', { class: 'img-float-left' }, ['img', node.attrs]],
+          ['figure', { class: 'img-float-left' }, ['img', { ...attrs, src, _src }]],
           ['main', {}, 0],
         ];
       }

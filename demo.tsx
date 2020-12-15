@@ -116,6 +116,7 @@ const extensions = [
   new ImageWithText({
     attributes: ['title', 'src'],
     openDialog: openImageTextDialog,
+    previewSrcFromAttrs: ({ src }) => src + '#XXXXXXXXX'
   }),
 ] as Extension[]
 
