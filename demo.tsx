@@ -10,10 +10,7 @@ import Paragraph from './src/extensions/paragraph';
 import Trash from './src/extensions/trash';
 import MoveUp from './src/extensions/move-up';
 import MoveDown from './src/extensions/move-down';
-import Heading1 from './src/extensions/heading1';
-import Heading2 from './src/extensions/heading2';
-import Heading3 from './src/extensions/heading3';
-import Heading4 from './src/extensions/heading4';
+import Heading from './src/extensions/heading';
 import ListItem from './src/extensions/list-item';
 import BulletList from './src/extensions/bullet-list';
 import OrderedList from './src/extensions/ordered-list';
@@ -79,10 +76,7 @@ const openImageTextDialog = getDialog('src')
 const extensions = [
   // blocks
   new Paragraph(),
-  new Heading1(),
-  new Heading2(),
-  new Heading3(),
-  new Heading4(),
+  new Heading({ sizes: ['XL', 'L', 'M', 'S', 'XS'] }),
   new ListItem(),
   new BulletList(),
   new OrderedList(),

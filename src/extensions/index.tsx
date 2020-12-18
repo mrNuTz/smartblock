@@ -3,8 +3,7 @@ import Paragraph from './paragraph';
 import Trash from './trash';
 import MoveUp from './move-up';
 import MoveDown from './move-down';
-import Heading2 from './heading2';
-import Heading3 from './heading3';
+import Heading from './heading';
 import ListItem from './list-item';
 import BulletList from './bullet-list';
 import OrderedList from './ordered-list';
@@ -24,8 +23,7 @@ import { Extension } from '../types/';
 export default [
   // blocks
   new Paragraph(),
-  new Heading2(),
-  new Heading3(),
+  new Heading({ sizes: ['L', 'M'] }),
   new ListItem(),
   new BulletList(),
   new OrderedList(),

@@ -544,46 +544,31 @@
 }
 
 .ProseMirror h1 {
-  margin: 0 0 30px 0;
-  padding: 0 5px;
-  font-size: 1.875rem;
-  line-height: 1.3;
-}
-
-@media screen and (min-width: 768px) {
-  .ProseMirror h1 {
-    padding: 0 10px;
-    font-size: 2.125rem;
-  }
-}
-
-
-.ProseMirror h2,
-.ProseMirror h3 {
-  margin: 20px 0 10px 0;
+  margin: 18px 0 9px 0;
   padding: 5px;
+  font-size: 2rem;
   line-height: 1.4;
   border-radius: 3px;
   transition: background-color .3s;
   box-sizing: border-box;
-}
 
-.ProseMirror h2 {
-  font-size: 1.625rem;
-}
+  &[hsize="L"] {
+    font-size: 1.7rem;
+  }
+  &[hsize="M"] {
+    font-size: 1.45rem;
+  }
+  &[hsize="S"] {
+    font-size: 1.25rem;
+  }
+  &[hsize="XS"] {
+    font-size: 1.1rem;
+  }
 
-.ProseMirror h3 {
-  font-size: 1.375rem;
-}
-
-@media screen and (min-width: 768px) {
-
-  .ProseMirror h2,
-  .ProseMirror h3 {
+  @media screen and (min-width: 768px) {
     padding: 5px 10px;
   }
 }
-
 
 .ProseMirror ul,
 .ProseMirror ol {

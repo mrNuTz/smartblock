@@ -28,12 +28,7 @@ import ImageWithText from './extensions/imageWithText'
 import BulletList from './extensions/bullet-list'
 import CustomBlock from './extensions/custom-block'
 import CustomMark from './extensions/custom-mark'
-import Heading1 from './extensions/heading1'
-import Heading2 from './extensions/heading2'
-import Heading3 from './extensions/heading3'
-import Heading4 from './extensions/heading4'
-import Heading5 from './extensions/heading5'
-import Heading6 from './extensions/heading6'
+import Heading from './extensions/heading'
 import ListItem from './extensions/list-item'
 import Blockquote from './extensions/blockquote'
 import Embed from './extensions/embed'
@@ -51,14 +46,6 @@ import Underline from './extensions/underline'
 import DefaultKeys from './extensions/default-keys'
 import DefaultPlugins from './extensions/default-plugins'
 import Extensions from './extensions'
-
-// icons
-import Heading1Icon from './components/icons/heading1'
-import Heading2Icon from './components/icons/heading2'
-import Heading3Icon from './components/icons/heading3'
-import Heading4Icon from './components/icons/heading4'
-import Heading5Icon from './components/icons/heading5'
-import Heading6Icon from './components/icons/heading6'
 
 import 'prosemirror-view/style/prosemirror.css'
 
@@ -82,12 +69,7 @@ export {
   ImageWithText,
   BulletList,
   CustomBlock,
-  Heading1,
-  Heading2,
-  Heading3,
-  Heading4,
-  Heading5,
-  Heading6,
+  Heading,
   ListItem,
   MoveDown,
   MoveUp,
@@ -123,11 +105,4 @@ export {
   DefaultPlugins,
   /* official */
   Plugin,
-  /* icons */
-  Heading1Icon,
-  Heading2Icon,
-  Heading3Icon,
-  Heading4Icon,
-  Heading5Icon,
-  Heading6Icon
 }

@@ -9,6 +9,7 @@ declare type ButtonProps = {
     tag?: 'label';
     className?: string;
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    title?: string;
 };
 declare const _default: (props: ButtonProps) => JSX.Element;
 export default _default;
