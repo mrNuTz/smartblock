@@ -11,6 +11,7 @@ type ButtonProps = {
   tag?: 'label';
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  title?: string;
 }
 
 export default (props: ButtonProps) => {
@@ -18,6 +19,7 @@ export default (props: ButtonProps) => {
   if (props.tag === 'label') {
     return <label
     style={props.style}
+    title={props.title}
     className={classNames(props.className, 'smartblock-btn', {
     'is-active': props.active,
     'is-black': props.color === 'black',
@@ -30,6 +32,7 @@ export default (props: ButtonProps) => {
     type={props.type}
     style={props.style}
     onClick={props.onClick}
+    title={props.title}
     className={classNames(props.className, 'smartblock-btn', {
     'is-active': props.active,
     'is-black': props.color === 'black',

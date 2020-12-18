@@ -228,6 +228,7 @@ export default class Table extends Extension {
         </Button>
         <Button
           type="button"
+          title="wide format"
           onClick={() =>
             setNodeMarkup(
               node.type, { ...node.attrs, wide: !node.attrs.wide }
