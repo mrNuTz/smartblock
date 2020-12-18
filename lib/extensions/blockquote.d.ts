@@ -10,15 +10,9 @@ export default class BlockQuote extends Extension {
         group: string;
         parseDOM: {
             tag: string;
-            getAttrs(dom: any): {};
         }[];
-        attrs: {
-            align: {
-                default: string;
-            };
-        };
-        toDOM: (node: any) => (string | number | {
-            style: string;
+        attrs: {};
+        toDOM: () => (string | number | {
             class: string;
         })[];
     };

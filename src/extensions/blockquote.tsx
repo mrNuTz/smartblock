@@ -9,8 +9,6 @@ export default class BlockQuote extends Extension {
     super(props);
   }
 
-
-
   get name() {
     return 'blockquote';
   }
@@ -30,32 +28,9 @@ export default class BlockQuote extends Extension {
     return {
       content: 'inline*',
       group: 'block',
-      parseDOM: [
-        {
-          tag: 'blockquote',
-          getAttrs(dom) {
-            const attr = {
-            };
-            if (dom.style.textAlign) {
-              attr['align'] = dom.style.textAlign;
-            }
-            return attr;
-          }
-        }
-      ],
-      attrs: {
-        align: { default: 'left' },
-      },
-      toDOM: node => {
-        return [
-          'blockquote',
-          {
-            style: `text-align: ${node.attrs.align}`,
-            class: this.className
-          },
-          0
-        ]
-      }
+      parseDOM: [{ tag: 'blockquote' }],
+      attrs: {},
+      toDOM: () => ['blockquote', { class: this.className }, 0]
     }
   }
 
