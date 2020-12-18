@@ -34,7 +34,7 @@ export default class Heading extends Extension {
           tag: 'h1',
           getAttrs: dom => ({
             hsize: dom.getAttribute('hsize'),
-            usehtag: dom.getAttributes('usehtag')
+            usehtag: dom.getAttribute('usehtag')
           })
         }
       ],
