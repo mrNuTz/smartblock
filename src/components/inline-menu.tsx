@@ -13,7 +13,7 @@ const { useRef } = React;
 const ARROWOFFSET = 30;
 const ARROWTOPOFFSET = 35;
 
-const calculateStyle = (
+const calculatePos = (
   view: EditorView,
   container: React.RefObject<HTMLDivElement>
 ) => {
@@ -22,20 +22,16 @@ const calculateStyle = (
   const coords = view.coordsAtPos(selection.$head.pos);
   const offsetTop = getOffset(view.dom).top;
   const top = coords.top + getScrollTop() + ARROWTOPOFFSET - offsetTop;
-  const left = coords.left - ARROWOFFSET - offsetLeft;
+  let left = coords.left - ARROWOFFSET - offsetLeft;
   if (container && container.current && container.current.offsetWidth) {
     const width = container.current.offsetWidth;
-    if (left + width > window.innerWidth) {
-      return {
-        top,
-        left: window.innerWidth - width
-      }
+    if (left + width > view.dom.clientWidth) {
+      left = view.dom.clientWidth - width
+    } else if (left < 0) {
+      left = 0
     }
   }
-  return {
-    left,
-    top
-  }
+  return { left, top }
 }
 
 const getActiveInlineMenu = (props: PositionProps) => {
@@ -65,8 +61,8 @@ const calculateArrowPos = (
   const left = coords.left - ARROWOFFSET - offsetLeft;
   const width = container.current ? container.current.offsetWidth : 0
   if (container && container.current && container.current.offsetWidth) {
-    if (left + width > window.innerWidth) {
-      return left - window.innerWidth + width;
+    if (left + width > view.dom.clientWidth) {
+      return left - view.dom.clientWidth + width + 20;
     }
   }
   return 20;
@@ -86,23 +82,21 @@ const MenuBar = ({
   const { state, dispatch } = view
   const { selection } = view.state
   const container = useRef<HTMLDivElement>(null)
-  const style = calculateStyle(view, container)
-  const pos = calculateArrowPos(view, container)
+  const pos = calculatePos(view, container)
+  const arrowPos = calculateArrowPos(view, container)
   const inlineMenu = getActiveInlineMenu({ blockMenu, view });
 
-  if (!selection || selection.empty) {
-    return <></>
-  }
-
-  if (menu.length === 0) {
-    return <></>
+  const hide = (!selection || selection.empty || menu.length === 0);
+  const style = {
+    zIndex: hide ? -10 : null,
+    opacity: hide ? 0 : null,
   }
 
   return (
-    <div style={style} ref={container} className="smartblock-inline-menu">
+    <div style={{ ...pos, ...style }} ref={container} className="smartblock-inline-menu">
       <div
         className="smartblock-inline-menu-arrow"
-        style={{left: `${pos}px`}}
+        style={{left: `${arrowPos}px`}}
       >
       </div>
       <div className="smartblock-inline-menu-inner">
