@@ -1,6 +1,6 @@
 import * as React from 'react';
 import FloatImageIcon from '../../components/icons/float-image';
-import ImageIcon from '../image/image-icon';
+import EditIcon from '../image/edit-icon';
 import { blockActive, findSelectedNodeWithType, setNodeMarkup } from '../../utils';
 import { Extension, Dispatch } from '../../types'
 import { EditorState } from 'prosemirror-state';
@@ -92,7 +92,7 @@ export default class ImageWithText extends Extension {
         <Button
           onClick={() => this.openDialog(state, dispatch)}
         >
-          <ImageIcon style={{ width: '24px', height: '24px' }} />
+          <EditIcon style={{ width: '24px', height: '24px' }} />
         </Button>
       </>
     );

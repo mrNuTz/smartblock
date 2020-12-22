@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ImageIcon from '../image/image-icon';
+import EditIcon from '../image/edit-icon';
 import { blockActive, findSelectedNodeWithType, getParentNodeFromState } from '../../utils';
 import { Extension, Dispatch } from '../../types'
 import { setBlockType } from 'prosemirror-commands';
@@ -91,7 +92,7 @@ export default class ImageDialogAdapter extends Extension {
         <Button
           onClick={() => this.openDialog(state, dispatch)}
         >
-          <ImageIcon style={{ width: '24px', height: '24px' }} />
+          <EditIcon style={{ width: '24px', height: '24px' }} />
         </Button>
       </>
     );
