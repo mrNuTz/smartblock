@@ -72,15 +72,7 @@ export default class Table extends Extension {
     }
     schemas.table.parseDOM = [{
       tag: 'table',
-      getAttrs(dom) {
-        const table = dom.querySelector('table');
-        if (!table) {
-          return {}
-        }
-        return {
-          wide: table.classList.contains('wide')
-        }
-      }
+      getAttrs: dom => ({ wide: dom.classList.contains('wide') })
     }]
     schemas.table.toDOM = node => {
       return [

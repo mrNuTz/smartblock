@@ -18,7 +18,7 @@ export default
       }, {
         "type": "table",
         "attrs": {
-          "wide": false
+          "wide": true
         },
         "content": [
           {
