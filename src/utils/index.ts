@@ -519,3 +519,16 @@ export const getUniqId = () => {
       .substr(2, 5)
   ).toUpperCase();
 }
+
+export const selectLastBlock = (containerId: string ): void => {
+  const root = document.getElementById(containerId)
+  const p = root.querySelector('.ProseMirror > p:last-child');
+  if (!p) return;
+  const range = document.createRange();
+  range.selectNode(p);
+  range.setStart(p, 0);
+  range.setEnd(p, 0);
+  const selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+}

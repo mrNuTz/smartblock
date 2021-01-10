@@ -15,7 +15,7 @@ import Menu from './menu';
 import BackBtn from './back-btn';
 import CustomLayout from './custom-layout';
 import Title from './title';
-import { getScrollTop, getOffset, getViewport, getHtmlFromNode, getParentNodeFromState } from '../utils'
+import { getScrollTop, getOffset, getViewport, getHtmlFromNode, getParentNodeFromState, selectLastBlock } from '../utils'
 import defaultExtensions from '../extensions/base'
 import { Extension, AppProps, Output } from '../types'
 
@@ -343,7 +343,7 @@ export default (props: AppProps) => {
       document.body.classList.remove('smartblock-hideMenus');
     else
       document.body.classList.add('smartblock-hideMenus');
-  },[showMenus]);
+  }, [showMenus]);
 
   const container = useRef<HTMLDivElement>(null);
   const blocks = getBlocks(extensions)
@@ -363,9 +363,14 @@ export default (props: AppProps) => {
     }}
     ref={app}
   >
-    <div className={classNames('smartblock-container', {
-      'is-full': props.full
-    })}>
+    <div
+      className={classNames('smartblock-container', { 'is-full': props.full })}
+      onClick={e => {
+        const target = e.target as HTMLDivElement
+        if (target.classList.contains('smartblock-container'))
+          selectLastBlock(containerId)
+      }}
+    >
       {props.showTitle &&
         <Title
           onChange={(title) => {
@@ -376,42 +381,41 @@ export default (props: AppProps) => {
         />
       }
       <div className="smartblock-inner">
-      <div
-        className={showMenus ? '' : 'ProseMirrorHideSelection'}
-        ref={container}
-      >
-        <div className="smartblock-input-area">
-          {options && <Editor
-            options={options}
-            nodeViews={nodeViews}
-            onChange={(state, dispatch) => {
-              const shouldScroll = onChange(state, dispatch, props, schema, container, showdown);
-              if (shouldScroll) {
-                setTimeout(() => {
-                  setShowMenus(true);
-                }, 700);
-              }
-            }}
-            render={({ editor, view, scrolling }: ProseRender) => {
-              if (scrolling) {
-                setShowMenus(false);
-              }
-              return(
-                <>
+        <div
+          className={showMenus ? '' : 'ProseMirrorHideSelection'}
+          ref={container}
+        >
+          <div className="smartblock-input-area">
+            {options && <Editor
+              options={options}
+              nodeViews={nodeViews}
+              onChange={(state, dispatch) => {
+                const shouldScroll = onChange(state, dispatch, props, schema, container, showdown);
+                if (shouldScroll) {
+                  setTimeout(() => {
+                    setShowMenus(true);
+                  }, 700);
+                }
+              }}
+              render={({ editor, view, scrolling }: ProseRender) => {
+                if (scrolling) {
+                  setShowMenus(false);
+                }
+                return (<>
                   {(showMenus) && <>
                     <Menu view={view} menu={getMenu(blocks)} />
                     <EditMenu view={view} menu={getMenu(edits)} />
-                    {shouldRenderInlineMenu(view, blocks) && <InlineMenu menu={getMenu(marks)} blockMenu={getMenu(blocks)} view={view} />}
+                    {shouldRenderInlineMenu(view, blocks) &&
+                      <InlineMenu menu={getMenu(marks)} blockMenu={getMenu(blocks)} view={view} />}
                     <CustomLayout view={view} menu={getMenu(blocks)} />
                     {showBackBtn && <BackBtn view={view} />}
                   </>}
                   {editor}
                 </>);
-              }
-            }
-          />}
+              }}
+            />}
+          </div>
         </div>
-      </div>
       </div>
     </div>
   </div>)
