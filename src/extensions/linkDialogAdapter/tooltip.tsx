@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { EditorView } from 'prosemirror-view';
-import { Plugin } from 'prosemirror-state';
+import { Plugin, TextSelection } from 'prosemirror-state';
 import Trash from '../../components/icons/trash';
 import Edit from '../../components/icons/edit';
 import { render, unmountComponentAtNode } from 'react-dom';
@@ -91,7 +91,7 @@ const getSelectedLink = (view: EditorView, attributes): PlacedLink => {
     to,
     attrs: filterAttrs(link.attrs, attributes),
     editing: link.attrs.editing,
-    coords: view.coordsAtPos(from),
+    coords: view.coordsAtPos(to),
   }
 }
 
@@ -125,7 +125,7 @@ class Tooltip {
     view.dispatch(tr);
   }
 
-  _onEdit = view => () => {
+  _onEdit = (view: EditorView) => () => {
     if (this._dialogOpen) return
     const onOk = (attrs) => {
       const { tr } = view.state;
@@ -135,6 +135,7 @@ class Tooltip {
         this._storedLink.to,
         view.state.schema.marks.link.create({ ...attrs, editing: '' })
       );
+      tr.setSelection(new TextSelection(tr.doc.resolve(this._storedLink.to + 2)))
       this._dialogOpen = false;
       this._storedLink = null;
       view.dispatch(tr);
