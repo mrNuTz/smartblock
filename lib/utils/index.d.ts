@@ -51,3 +51,4 @@ export declare const stripPtag: (html: string) => string;
 export declare const getHtmlFromNode: (doc: Node, schema: Schema) => string;
 export declare const getBrowser: () => string;
 export declare const getUniqId: () => string;
+export declare const selectLastBlock: (containerId: string) => void;
