@@ -4,29 +4,54 @@ import { Plugin, TextSelection } from 'prosemirror-state';
 import Trash from '../../components/icons/trash';
 import Edit from '../../components/icons/edit';
 import { render, unmountComponentAtNode } from 'react-dom';
-import { getScrollTop } from '../../utils';
+import { getOffset, getScrollTop } from '../../utils';
 import { OpenDialogFn } from './';
 
 const TOOLTIP_WIDTH = 92
+const ARROWOFFSET = 30;
+const ARROWTOPOFFSET = 43;
 
-const clamp = (v, min, max) => v < min ? min : v > max ? max : v
+const calcTopLeft = (view: EditorView) => {
+  const { selection } = view.state;
+  const offsetLeft = getOffset(view.dom).left;
+  const coords = view.coordsAtPos(selection.$head.pos);
+  const offsetTop = getOffset(view.dom).top;
+  const top = coords.top + getScrollTop() + ARROWTOPOFFSET - offsetTop;
+  let left = coords.left - ARROWOFFSET - offsetLeft;
+  const width = TOOLTIP_WIDTH;
+  if (left + width > view.dom.clientWidth) {
+    left = view.dom.clientWidth - width
+  } else if (left < 0) {
+    left = 0
+  }
+  return { left, top }
+}
 
-const calcTopLeft = (coords: { top: number; left: number }) => {
-  const top = coords.top + getScrollTop() + 43;
-  const left = clamp(coords.left - 30, 0, window.innerWidth - TOOLTIP_WIDTH);
-  return { top, left }
+const calculateArrowPos = (
+  view: EditorView,
+) => {
+  const { selection } = view.state;
+  const offsetLeft = getOffset(view.dom).left;
+  const coords = view.coordsAtPos(selection.$head.pos);
+  const left = coords.left - ARROWOFFSET - offsetLeft;
+  const width = TOOLTIP_WIDTH
+  if (left + width > view.dom.clientWidth) {
+    return left - view.dom.clientWidth + width + 20;
+  }
+  return 20;
 }
 
 const TooltipComponent = (props: {
-  linkCoords?: { top: number; left: number };
+  show: boolean;
   onDel(): void;
   onEdit(): void;
+  view: EditorView;
 }) => {
-  const { linkCoords, onDel, onEdit } = props;
+  const { show, onDel, onEdit, view } = props;
 
-  return !!linkCoords && (
-    <div className="smartblock-tooltip-wrap" style={calcTopLeft(linkCoords)}>
-      <div className="smartblock-tooltip-wrap-arrow" style={{ left: 20 }} />
+  return !!show && (
+    <div className="smartblock-tooltip-wrap" style={calcTopLeft(view)}>
+      <div className="smartblock-tooltip-wrap-arrow" style={{ left: calculateArrowPos(view) }} />
       <div className="smartblock-link-dialog-tooltip">
         <div className="smartblock-tooltip-inner">
           <button
@@ -102,18 +127,19 @@ type TooltipProps = {
 }
 
 class Tooltip {
-  tooltip: HTMLDivElement;
+  private _tooltip: HTMLDivElement;
   private _attributes: string[];
   private _openDialog: OpenDialogFn;
   private _storedLink?: PlacedLink = null;
   private _dialogOpen: boolean = false;
+  private _container: Element;
 
   constructor({ attributes, openDialog, view }: TooltipProps) {
     this._attributes = attributes
     this._openDialog = openDialog
 
-    this.tooltip = document.createElement('div');
-    document.body.appendChild(this.tooltip);
+    this._tooltip = document.createElement('div');
+    this._tooltip.className = 'link-tooltip'
     this.update(view);
   }
 
@@ -161,6 +187,14 @@ class Tooltip {
   update(view: EditorView) {
     const selectedLink = getSelectedLink(view, this._attributes);
 
+    if (!this._container) {
+      const container = view.dom.closest('.smartblock-container')
+      if (container) {
+        this._container = container.querySelector('.plugin-toolbar-container')
+        this._container.appendChild(this._tooltip)
+      }
+    }
+
     if ((!this._storedLink || !this._storedLink.editing) && selectedLink && !this._dialogOpen) {
       this._storedLink = selectedLink
     } else if (
@@ -179,15 +213,16 @@ class Tooltip {
 
     render(
       <TooltipComponent
-        linkCoords={this._storedLink && this._storedLink.coords}
+        show={!!this._storedLink}
         onDel={this._onDel(view)}
         onEdit={this._onEdit(view)}
+        view={view}
       />,
-      this.tooltip);
+      this._tooltip);
   }
   destroy() {
-    unmountComponentAtNode(this.tooltip);
-    document.body.removeChild(this.tooltip);
+    unmountComponentAtNode(this._tooltip);
+    this._container.removeChild(this._tooltip);
   }
 }
 

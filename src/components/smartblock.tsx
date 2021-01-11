@@ -409,6 +409,7 @@ export default (props: AppProps) => {
                       <InlineMenu menu={getMenu(marks)} blockMenu={getMenu(blocks)} view={view} />}
                     <CustomLayout view={view} menu={getMenu(blocks)} />
                     {showBackBtn && <BackBtn view={view} />}
+                    <div className="plugin-toolbar-container"></div>
                   </>}
                   {editor}
                 </>);
