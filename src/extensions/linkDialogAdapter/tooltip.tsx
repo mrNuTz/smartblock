@@ -196,7 +196,9 @@ class Tooltip {
     }
 
     if ((!this._storedLink || !this._storedLink.editing) && selectedLink && !this._dialogOpen) {
-      this._storedLink = selectedLink
+      this._storedLink = selectedLink;
+      if (selectedLink.editing)
+        this._onEdit(view)();
     } else if (
       this._storedLink && !this._dialogOpen
       && (!selectedLink || selectedLink.from !== this._storedLink.from)
@@ -204,7 +206,7 @@ class Tooltip {
       if (this._storedLink.editing) {
         const { tr } = view.state;
         tr.removeMark(this._storedLink.from, this._storedLink.to, view.state.schema.marks.link);
-        this._storedLink = null
+        this._storedLink = null;
         view.dispatch(tr);
         return;
       }

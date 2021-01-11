@@ -3,7 +3,7 @@ const { CheckerPlugin } = require('awesome-typescript-loader');
 
 // for not jsx users
 module.exports = {
-  mode: "production",
+  mode: "development",
   entry: {
     main: './demo.tsx'
   },
