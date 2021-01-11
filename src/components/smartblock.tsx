@@ -340,13 +340,6 @@ export default (props: AppProps) => {
     return uuid();
   }, []);
 
-  useEffect(() => {
-    if (showMenus)
-      document.body.classList.remove('smartblock-hideMenus');
-    else
-      document.body.classList.add('smartblock-hideMenus');
-  }, [showMenus]);
-
   const container = useRef<HTMLDivElement>(null);
   const blocks = getBlocks(extensions)
   const marks = getMarks(extensions)
@@ -404,7 +397,10 @@ export default (props: AppProps) => {
                   setShowMenus(false);
                 }
                 return (<>
-                  {(showMenus) && <>
+                  <div
+                    className="smartblock-menus-container"
+                    style={{ display: showMenus ? null : 'none' }}
+                  >
                     <Menu view={view} menu={getMenu(blocks)} />
                     <EditMenu view={view} menu={getMenu(edits)} />
                     {shouldRenderInlineMenu(view, blocks) &&
@@ -412,7 +408,7 @@ export default (props: AppProps) => {
                     <CustomLayout view={view} menu={getMenu(blocks)} />
                     {showBackBtn && <BackBtn view={view} />}
                     <PluginToolbarContainer />
-                  </>}
+                  </div>
                   {editor}
                 </>);
               }}
