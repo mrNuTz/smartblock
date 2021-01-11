@@ -222,7 +222,8 @@ class Tooltip {
   }
   destroy() {
     unmountComponentAtNode(this._tooltip);
-    this._container.removeChild(this._tooltip);
+    if (this._container)
+      this._container.removeChild(this._tooltip);
   }
 }
 
