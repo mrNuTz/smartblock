@@ -271,6 +271,8 @@ const shouldRenderInlineMenu = (view: EditorView, blocks: Extension[]) => {
   return true;
 }
 
+const PluginToolbarContainer = React.memo(() => <div className="plugin-toolbar-container" />);
+
 export default (props: AppProps) => {
   const defaultProps = {
     extensions: defaultExtensions,
@@ -409,7 +411,7 @@ export default (props: AppProps) => {
                       <InlineMenu menu={getMenu(marks)} blockMenu={getMenu(blocks)} view={view} />}
                     <CustomLayout view={view} menu={getMenu(blocks)} />
                     {showBackBtn && <BackBtn view={view} />}
-                    <div className="plugin-toolbar-container"></div>
+                    <PluginToolbarContainer />
                   </>}
                   {editor}
                 </>);
