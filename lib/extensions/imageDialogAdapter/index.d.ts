@@ -29,7 +29,9 @@ export default class ImageDialogAdapter extends Extension {
             tag: string;
             getAttrs: (dom: any) => {};
         }[];
-        toDOM: (node: any) => {}[];
+        toDOM: (node: any) => (string | any[] | {
+            class: string;
+        })[];
     };
     openDialog: (state: EditorState, dispatch: Dispatch) => void;
     customButton({ state, dispatch }: {

@@ -459,8 +459,13 @@
   padding: 10px 5px;
   margin: 0;
 
-  &.empty-node figcaption:before {
+  &.empty-node:not(.no-edit) figcaption:before {
     content: "Type Something..."
+  }
+
+  div.hole {
+    font-size: 0;
+    line-height: 0;
   }
 
   figcaption {

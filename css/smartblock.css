@@ -371,8 +371,11 @@
   text-align: center;
   padding: 10px 5px;
   margin: 0; }
-  .ProseMirror figure.empty-node figcaption:before {
+  .ProseMirror figure.empty-node:not(.no-edit) figcaption:before {
     content: "Type Something..."; }
+  .ProseMirror figure div.hole {
+    font-size: 0;
+    line-height: 0; }
   .ProseMirror figure figcaption {
     font-size: 0; }
   .ProseMirror figure figcaption.caption {

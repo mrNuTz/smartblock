@@ -57,9 +57,9 @@ export default class ImageDialogAdapter extends Extension {
       toDOM: (node) => {
         const src = this._previewSrcFromAttrs(node.attrs)
         const { src: _src, ...attrs } = node.attrs
-        return ['figure', {},
+        return ['figure', { class: 'no-edit' },
           ['img', { ...attrs, src, _src }],
-          ['figcaption', {}, 0],
+          ['div', { class: 'hole' }, 0],
           attrs.caption ? ['figcaption', { class: 'caption' }, attrs.caption] : ['div'],
         ];
       }
