@@ -50,7 +50,7 @@ const getDialog = (attr) => {
       div.append(cancel)
 
       ok.addEventListener('click', () => {
-        onOKCl({ title: 'foo', foo: 'bar', [attr]: input.value })
+        onOKCl({ ...attrs, [attr]: input.value })
         div.style.display = 'none'
       })
       cancel.addEventListener('click', () => {
@@ -70,7 +70,7 @@ const getDialog = (attr) => {
 }
 
 const openLinkDialog = getDialog('href')
-const openImageDialog = getDialog('src')
+const openImageDialog = getDialog('caption')
 const openImageTextDialog = getDialog('src')
 
 const extensions = [
@@ -104,7 +104,7 @@ const extensions = [
     openDialog: openLinkDialog,
   }),
   new ImageDialogAdapter({
-    attributes: ['title', 'src'],
+    attributes: ['title', 'src', 'caption'],
     openDialog: openImageDialog,
   }),
   new ImageWithText({
