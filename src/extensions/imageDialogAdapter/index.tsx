@@ -101,9 +101,9 @@ export default class ImageDialogAdapter extends Extension {
   active(state) {
     return blockActive(state.schema.nodes.image)(state);
   }
-  enable(state) {
+  enable(state: EditorState) {
     const node = getParentNodeFromState(state)
-    if (node.type.name !== 'paragraph') {
+    if (node.type.name !== 'paragraph' || node.content.size > 0) {
       return false;
     }
     return setBlockType(state.schema.nodes.image)(state);

@@ -2,6 +2,7 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Node, Schema, Mark, NodeType } from 'prosemirror-model';
 import { Dispatch } from '../types';
+import { NodeWithPos } from 'prosemirror-utils';
 export declare const getScrollTop: () => number;
 export declare const getScrollLeft: () => number;
 export declare const getOffset: (el: any) => {
@@ -27,11 +28,11 @@ export declare const getMarkInSelection: (markName: string, state: EditorState) 
 export declare const blockActive: (type: any) => (state: any) => boolean;
 export declare const canInsert: (type: any) => (state: any) => boolean;
 export declare const findNodePosition: (doc: Node, target: Node) => number;
-export declare const getRootNodeWithPosByIndex: (state: EditorState, index: number) => import("prosemirror-utils").NodeWithPos;
+export declare const getRootNodeWithPosByIndex: (state: EditorState, index: number) => NodeWithPos;
 export declare const getRootNodeCountFromState: (state: EditorState) => number;
-export declare const getParentNodeWithPosFromState: (state: EditorState) => import("prosemirror-utils").NodeWithPos;
+export declare const getParentNodeWithPosFromState: (state: EditorState) => NodeWithPos;
 export declare const getParentNodeIndexFromState: (state: EditorState) => number;
-export declare const getParentNodeFromState: (state: EditorState) => Node<any>;
+export declare const getParentNodeFromState: (state: EditorState) => Node;
 export declare const getParentNodePosFromState: (state: EditorState) => number;
 export declare const findSelectedNodeWithType: (nodeType: NodeType, state: EditorState) => Node;
 export declare function setNodeMarkup(nodeType: NodeType, attrs: {

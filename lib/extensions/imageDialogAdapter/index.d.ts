@@ -43,7 +43,7 @@ export default class ImageDialogAdapter extends Extension {
         dispatch: any;
     }): JSX.Element;
     active(state: any): boolean;
-    enable(state: any): boolean;
+    enable(state: EditorState): boolean;
     get icon(): JSX.Element;
     get plugins(): import("prosemirror-state").Plugin<any, any>[];
 }

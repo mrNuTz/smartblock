@@ -13,6 +13,7 @@ import {
 } from 'prosemirror-model';
 import { liftTarget, ReplaceAroundStep } from 'prosemirror-transform';
 import { Dispatch } from '../types';
+import { NodeWithPos } from 'prosemirror-utils';
 
 export const getScrollTop = () => {
   return (
@@ -170,7 +171,7 @@ export const getRootNodeCountFromState = (state: EditorState) => {
   return state.doc.content.childCount;
 }
 
-export const getParentNodeWithPosFromState = (state: EditorState) => {
+export const getParentNodeWithPosFromState = (state: EditorState): NodeWithPos => {
   const { selection } = state;
   const { $anchor } = selection;
   const resolvedPos = state.doc.resolve($anchor.pos) as any;
@@ -199,7 +200,7 @@ export const getParentNodeIndexFromState = (state: EditorState) => {
   return rowNumber;
 }
 
-export const getParentNodeFromState = (state: EditorState) => {
+export const getParentNodeFromState = (state: EditorState): Node => {
   const firstNode = getParentNodeWithPosFromState(state);
   const { node } = firstNode;
   return node;
