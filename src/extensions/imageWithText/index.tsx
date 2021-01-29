@@ -14,6 +14,7 @@ type Props = {
   openDialog: OpenDialogFn;
   attributes: string[];
   previewSrcFromAttrs?: (attrs: Attributes) => string;
+  aspectRatio?: number;
 }
 
 export default class ImageWithText extends Extension {
@@ -24,12 +25,14 @@ export default class ImageWithText extends Extension {
   private _openDialog: OpenDialogFn
   private _attributes: string[]
   private _previewSrcFromAttrs: (attrs: Attributes) => string
+  private _aspectRatio?: number
 
-  constructor({ openDialog, attributes, previewSrcFromAttrs, ...props }: Props) {
+  constructor({ openDialog, attributes, previewSrcFromAttrs, aspectRatio, ...props }: Props) {
     super(props);
     this._openDialog = openDialog
     this._attributes = attributes.includes('src') ? attributes : attributes.concat('src')
     this._previewSrcFromAttrs = previewSrcFromAttrs || (({ src }) => src)
+    this._aspectRatio = aspectRatio
   }
 
   get schema() {
@@ -56,7 +59,13 @@ export default class ImageWithText extends Extension {
         const src = this._previewSrcFromAttrs(node.attrs)
         const { src: _src, ...attrs } = node.attrs
         return ['section', {},
-          ['figure', { class: 'img-float-left' }, ['img', { ...attrs, src, _src }]],
+          ['figure',
+            { class: 'img-float-left' },
+            (this._aspectRatio > 0) ? ['div',
+              { class: 'img-container', style: `padding-bottom: ${100 / this._aspectRatio}%;` },
+              ['img', { ...attrs, src, _src }]
+            ] : ['img', { ...attrs, src, _src }]
+          ],
           ['main', {}, 0],
         ];
       }

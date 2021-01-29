@@ -106,11 +106,13 @@ const extensions = [
   new ImageDialogAdapter({
     attributes: ['title', 'src', 'caption'],
     openDialog: openImageDialog,
+    aspectRatio: 16/9
   }),
   new ImageWithText({
     attributes: ['title', 'src'],
     openDialog: openImageTextDialog,
-    previewSrcFromAttrs: ({ src }) => src + '#XXXXXXXXX'
+    previewSrcFromAttrs: ({ src }) => src + '#XXXXXXXXX',
+    aspectRatio: 16/9
   }),
 ] as Extension[]
 

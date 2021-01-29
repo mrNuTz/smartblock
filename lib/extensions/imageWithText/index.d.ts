@@ -9,6 +9,7 @@ declare type Props = {
     openDialog: OpenDialogFn;
     attributes: string[];
     previewSrcFromAttrs?: (attrs: Attributes) => string;
+    aspectRatio?: number;
 };
 export default class ImageWithText extends Extension {
     name: string;
@@ -18,7 +19,8 @@ export default class ImageWithText extends Extension {
     private _openDialog;
     private _attributes;
     private _previewSrcFromAttrs;
-    constructor({ openDialog, attributes, previewSrcFromAttrs, ...props }: Props);
+    private _aspectRatio?;
+    constructor({ openDialog, attributes, previewSrcFromAttrs, aspectRatio, ...props }: Props);
     get schema(): {
         content: string;
         group: string;
