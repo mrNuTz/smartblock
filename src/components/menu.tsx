@@ -125,10 +125,10 @@ export default (props: PositionProps) => {
     top: 0
   });
 
-  useEffect(() => {
+  useEffect(() => void setTimeout(() => {
     const nextStyle = calculateStyle(props);
     setState(nextStyle);
-  }, [props]);
+  }), [props]);
 
   if (!shouldRender) {
     return null;
@@ -151,7 +151,9 @@ export default (props: PositionProps) => {
       <div className="smartblock-menu-top">
         {menu.map((item, key) => {
           if (item.customButton) {
-            return item.customButton({ state, dispatch });
+            return <React.Fragment key={key}>
+              {item.customButton({ state, dispatch })}
+            </React.Fragment>;
           }
           return (
             <Button
@@ -167,8 +169,8 @@ export default (props: PositionProps) => {
               {typeof item.icon !== 'string' ? (
                 item.icon
               ) : (
-                <span dangerouslySetInnerHTML={{ __html: item.icon }} />
-              )}
+                  <span dangerouslySetInnerHTML={{ __html: item.icon }} />
+                )}
             </Button>
           )
         })}

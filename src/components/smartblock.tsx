@@ -335,7 +335,7 @@ export default (props: AppProps) => {
     setOptions(editorOptions);
   }, []);
 
-  const [showMenus, setShowMenus] = useState(true);
+  const [showMenus, setShowMenus] = useState(false);
   const containerId = React.useMemo(() => {
     return uuid();
   }, []);

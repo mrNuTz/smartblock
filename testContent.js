@@ -15,7 +15,9 @@ export default
             "text": "This is a caption"
           }
         ]
-      }, {
+      },
+      { "type": "paragraph", "content": [{ "type": "text", "text": "test" }] },
+      {
         "type": "table",
         "attrs": {
           "wide": true
