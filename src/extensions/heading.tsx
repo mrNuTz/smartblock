@@ -9,6 +9,13 @@ type Sizes = [Size, ...Size[]];
 type Props = {
   sizes: Sizes;
 }
+const sizeToTag = {
+  XL: 'h1',
+  L: 'h2',
+  M: 'h3',
+  S: 'h4',
+  XS: 'h5',
+}
 
 export default class Heading extends Extension {
   name = 'heading'
@@ -60,6 +67,7 @@ export default class Heading extends Extension {
 
   customMenu({ state, dispatch }) {
     const node = getParentNodeFromState(state);
+    const tag = node ? sizeToTag[node.attrs.hsize] : 'h'
     return (<>
       {
         this._sizes.map(hsize => (
@@ -81,7 +89,7 @@ export default class Heading extends Extension {
       <Button
         type="button"
         active={node && node.attrs.usehtag}
-        title="use h-tag"
+        title={`use ${tag}-tag`}
         onClick={() => {
           setBlockType(state.schema.nodes.heading, {
             ...node.attrs,
