@@ -45,6 +45,7 @@ import Emphasis from './extensions/emphasis'
 import Underline from './extensions/underline'
 import DefaultKeys from './extensions/default-keys'
 import DefaultPlugins from './extensions/default-plugins'
+import Expert from './extensions/expert'
 import Extensions from './extensions'
 
 import 'prosemirror-view/style/prosemirror.css'
@@ -79,6 +80,7 @@ export {
   Table,
   Embed,
   Code,
+  Expert,
   /* inline */
   Emphasis,
   Strike,
