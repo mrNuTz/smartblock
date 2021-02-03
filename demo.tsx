@@ -19,6 +19,7 @@ import Table from './src/extensions/table';
 import Blockquote from './src/extensions/blockquote';
 import Strong from './src/extensions/strong';
 import Emphasis from './src/extensions/emphasis';
+import Expert from './src/extensions/expert';
 import Underline from './src/extensions/underline';
 import Strike from './src/extensions/strike';
 import DefaultKeys from './src/extensions/default-keys';
@@ -27,7 +28,7 @@ import { Extension } from './src/types/';
 
 import testContent from './testContent'
 
-const getDialog = (attr) => {
+const getDialog = (attr, defaultAttrs?) => {
   let onOKCl
   let onCancelCl
   let dialog = null
@@ -50,7 +51,7 @@ const getDialog = (attr) => {
       div.append(cancel)
 
       ok.addEventListener('click', () => {
-        onOKCl({ ...attrs, [attr]: input.value })
+        onOKCl({ ...defaultAttrs, ...attrs, [attr]: input.value })
         div.style.display = 'none'
       })
       cancel.addEventListener('click', () => {
@@ -72,6 +73,7 @@ const getDialog = (attr) => {
 const openLinkDialog = getDialog('href')
 const openImageDialog = getDialog('caption')
 const openImageTextDialog = getDialog('src')
+const openExpertDialog = getDialog('name', { userNo: 'XXX' })
 
 const extensions = [
   // blocks
@@ -106,13 +108,17 @@ const extensions = [
   new ImageDialogAdapter({
     attributes: ['title', 'src', 'caption'],
     openDialog: openImageDialog,
-    aspectRatio: 16/9
+    aspectRatio: 16 / 9
   }),
   new ImageWithText({
     attributes: ['title', 'src'],
     openDialog: openImageTextDialog,
     previewSrcFromAttrs: ({ src }) => src + '#XXXXXXXXX',
-    aspectRatio: 16/9
+    aspectRatio: 16 / 9
+  }),
+  new Expert({
+    attributes: ['name', 'userNo'],
+    openDialog: openExpertDialog
   }),
 ] as Extension[]
 

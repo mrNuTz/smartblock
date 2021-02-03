@@ -37,7 +37,7 @@ export declare const getParentNodePosFromState: (state: EditorState) => number;
 export declare const findSelectedNodeWithType: (nodeType: NodeType, state: EditorState) => Node;
 export declare function setNodeMarkup(nodeType: NodeType, attrs: {
     [attr: string]: any;
-}): (state: EditorState, dispatch: Dispatch) => boolean;
+}): (state: EditorState, dispatch?: Dispatch) => boolean;
 export declare const liftListItem: (itemType: any) => (state: EditorState, dispatch?: Dispatch) => boolean;
 export declare const createTable: (schema: any, attrs: any, rowsCount?: number, colsCount?: number, withHeaderRow?: boolean, cellContent?: any) => any;
 export declare const calculateStyle: (view: EditorView, offset?: {

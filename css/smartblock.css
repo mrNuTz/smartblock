@@ -298,6 +298,10 @@
   padding: 10px 5px;
   background: #fff; }
 
+.ProseMirror div.hole {
+  font-size: 0;
+  line-height: 0; }
+
 .ProseMirror:focus {
   outline: none; }
 
@@ -386,9 +390,6 @@
       height: 100%; }
   .ProseMirror figure.empty-node:not(.no-edit) figcaption:before {
     content: "Type Something..."; }
-  .ProseMirror figure div.hole {
-    font-size: 0;
-    line-height: 0; }
   .ProseMirror figure figcaption {
     font-size: 0; }
   .ProseMirror figure figcaption.caption {
@@ -645,6 +646,20 @@
   content: "";
   display: table;
   clear: both; }
+
+.ProseMirror .expert {
+  padding: 5px;
+  font-family: monospace;
+  font-weight: bold; }
+  .ProseMirror .expert .content {
+    padding: 5px;
+    background: #007abc;
+    color: white; }
+    .ProseMirror .expert .content > span::after {
+      content: " "; }
+    @media screen and (min-width: 768px) {
+      .ProseMirror .expert .content {
+        padding: 5px 10px; } }
 
 /* a11y-dark theme */
 /* Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css */

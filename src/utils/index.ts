@@ -229,7 +229,7 @@ export const findSelectedNodeWithType = (nodeType: NodeType, state: EditorState)
 }
 
 export function setNodeMarkup(nodeType: NodeType, attrs: { [attr: string]: any }) {
-  return function (state: EditorState, dispatch: Dispatch): boolean {
+  return function (state: EditorState, dispatch?: Dispatch): boolean {
     let { from, to } = state.selection
     let applicable = false
     let _pos = 0

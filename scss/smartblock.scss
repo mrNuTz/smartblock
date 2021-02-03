@@ -370,6 +370,11 @@
   background: #fff;
 }
 
+.ProseMirror div.hole {
+  font-size: 0;
+  line-height: 0;
+}
+
 .ProseMirror:focus {
   outline: none;
 }
@@ -477,11 +482,6 @@
 
   &.empty-node:not(.no-edit) figcaption:before {
     content: "Type Something..."
-  }
-
-  div.hole {
-    font-size: 0;
-    line-height: 0;
   }
 
   figcaption {
@@ -808,6 +808,29 @@
     content: "";
     display: table;
     clear: both;
+  }
+}
+
+.ProseMirror .expert {
+  padding: 5px;
+  font-family: monospace;
+  font-weight: bold;
+
+  .content {
+    padding: 5px;
+    //color: #007abc;
+    background: #007abc;
+    color: white;
+
+    & > span {
+      &::after {
+        content: " ";
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      padding: 5px 10px;
+    }
   }
 }
 

@@ -3,6 +3,13 @@ export default
     "type": "doc",
     "content": [
       {
+        attrs: {
+          name: "undefined",
+          userNo: "XXX",
+        },
+        type: "expert"
+      },
+      {
         "type": "image",
         "attrs": {
           "title": "foo",
