@@ -648,18 +648,27 @@
   clear: both; }
 
 .ProseMirror .expert {
-  padding: 5px;
-  font-family: monospace;
-  font-weight: bold; }
+  padding: 5px; }
   .ProseMirror .expert .content {
-    padding: 5px;
-    background: #007abc;
-    color: white; }
-    .ProseMirror .expert .content > span::after {
-      content: " "; }
-    @media screen and (min-width: 768px) {
-      .ProseMirror .expert .content {
-        padding: 5px 10px; } }
+    display: flex;
+    align-items: center; }
+    .ProseMirror .expert .content .foto {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      box-shadow: 0 8px 24px 0 #eae8eb; }
+    .ProseMirror .expert .content .text {
+      padding-left: 1rem; }
+      .ProseMirror .expert .content .text .name {
+        font-size: 1.3rem;
+        font-weight: bold;
+        margin-bottom: .3rem; }
+      .ProseMirror .expert .content .text .function {
+        color: #8F9192;
+        font-size: .9rem; }
+  @media screen and (min-width: 768px) {
+    .ProseMirror .expert {
+      padding: 5px 10px; } }
 
 /* a11y-dark theme */
 /* Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css */

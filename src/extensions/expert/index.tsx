@@ -51,10 +51,10 @@ export default class Expert extends Extension {
       toDOM: node => ['div',
         { class: 'expert', ...node.attrs },
         ['div', { class: 'content' },
-          ['span', {}, 'Expert:'],
-          ['span', {}, node.attrs.name],
-          ['span', {}, `(${node.attrs.userNo})`]
-        ],
+          ['div', { class: 'foto' }],
+          ['div', { class: 'text'},
+            ['div', { class: 'name' }, node.attrs.name || ''],
+            ['div', { class: 'function' }, node.attrs.function || '']]],
         ['div', { class: 'hole' }, 0]
       ]
     }

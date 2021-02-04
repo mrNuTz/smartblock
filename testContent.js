@@ -4,8 +4,8 @@ export default
     "content": [
       {
         attrs: {
-          name: "undefined",
-          userNo: "XXX",
+          name: "Bernhard Bär",
+          function: "Haberkorn Experte für Warnschutzkleidung",
         },
         type: "expert"
       },

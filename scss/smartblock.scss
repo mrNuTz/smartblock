@@ -813,24 +813,32 @@
 
 .ProseMirror .expert {
   padding: 5px;
-  font-family: monospace;
-  font-weight: bold;
 
   .content {
-    padding: 5px;
-    //color: #007abc;
-    background: #007abc;
-    color: white;
+    display: flex;
+    align-items: center;
 
-    & > span {
-      &::after {
-        content: " ";
+    .foto {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      box-shadow: 0 8px 24px 0 #eae8eb;
+    }
+    .text {
+      padding-left: 1rem;
+      .name {
+        font-size: 1.3rem;
+        font-weight: bold;
+        margin-bottom: .3rem;
+      }
+      .function {
+        color: #8F9192;
+        font-size: .9rem;
       }
     }
-
-    @media screen and (min-width: 768px) {
-      padding: 5px 10px;
-    }
+  }
+  @media screen and (min-width: 768px) {
+    padding: 5px 10px;
   }
 }
 

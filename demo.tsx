@@ -73,7 +73,7 @@ const getDialog = (attr, defaultAttrs?) => {
 const openLinkDialog = getDialog('href')
 const openImageDialog = getDialog('caption')
 const openImageTextDialog = getDialog('src')
-const openExpertDialog = getDialog('name', { userNo: 'XXX' })
+const openExpertDialog = getDialog('name', { function: 'Haberkorn Expert für ' })
 
 const extensions = [
   // blocks
@@ -117,7 +117,7 @@ const extensions = [
     aspectRatio: 16 / 9
   }),
   new Expert({
-    attributes: ['name', 'userNo'],
+    attributes: ['name', 'userNo', 'function'],
     openDialog: openExpertDialog
   }),
 ] as Extension[]
