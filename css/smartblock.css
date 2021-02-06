@@ -670,6 +670,35 @@
     .ProseMirror .expert {
       padding: 5px 10px; } }
 
+.ProseMirror .cta {
+  padding: 5px; }
+  @media screen and (min-width: 768px) {
+    .ProseMirror .cta {
+      padding: 5px 10px; } }
+  .ProseMirror .cta a {
+    pointer-events: none;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 20px;
+    background: linear-gradient(45deg, #006DAB 0%, #007abc 51.06%, #5BAFE6 100%);
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    box-shadow: none;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.34px;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden; }
+    .ProseMirror .cta a.variant-reverse {
+      background: transparent;
+      color: #007abc;
+      border: 2px solid #007abc; }
+
 /* a11y-dark theme */
 /* Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css */
 /* @author: ericwbailey */

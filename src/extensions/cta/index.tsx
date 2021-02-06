@@ -13,8 +13,8 @@ type config = ExtensionProps & {
   attributes: string[];
 }
 
-export default class Expert extends Extension {
-  name = 'expert'
+export default class Cta extends Extension {
+  name = 'cta'
   group = 'block'
   showMenu = true
   private _openDialog: OpenDialogFn
@@ -32,29 +32,34 @@ export default class Expert extends Extension {
     }
     return {
       content: 'text*',
-      group: 'block',
       selectable: true,
+      group: 'block',
       parseDOM: [
         {
-          tag: 'div.expert',
-          getAttrs: dom => this._attributes.reduce((attrs, attr) => {
-            attrs[attr] = dom.getAttribute(attr)
-            return attrs
-          }, {})
+          tag: 'div.cta',
+          getAttrs: dom => {
+            const a = dom.querySelector('a')
+            return !a ? {} : this._attributes.reduce((attrs, attr) => {
+              attrs[attr] = a.getAttribute(attr)
+              return attrs
+            }, {})
+          }
         }
       ],
       attrs: this._attributes.reduce((attrs, attr) => {
         attrs[attr] = { default: '' }
         return attrs
       }, {}),
-      toDOM: node => ['div',
-        { class: 'expert', ...node.attrs },
-        ['div', { class: 'content' },
-          ['div', { class: 'foto' }],
-          ['div', { class: 'text'},
-            ['div', { class: 'name' }, node.attrs.name || ''],
-            ['div', { class: 'function' }, node.attrs.function || '']]],
-      ]
+      toDOM: node =>
+        ['div', { class: 'cta' },
+          ['a',
+            {
+              role: 'button',
+              ...node.attrs,
+              class: `${(node.attrs.class || '')} ${node.attrs.variant ? 'variant-' + node.attrs.variant : ''}`
+            },
+            ['span', { class: 'text' }, node.attrs.text || '']],
+        ]
     }
   }
 
@@ -63,7 +68,7 @@ export default class Expert extends Extension {
   }
 
   active(state) {
-    return blockActive(state.schema.nodes.expert)(state);
+    return blockActive(state.schema.nodes.cta)(state);
   }
 
   enable(state: EditorState) {
@@ -71,12 +76,12 @@ export default class Expert extends Extension {
     if (node.type.name !== 'paragraph' || node.content.size > 0) {
       return false;
     }
-    return setNodeMarkup(state.schema.nodes.expert, {})(state);
+    return setNodeMarkup(state.schema.nodes.cta, {})(state);
   }
 
   openDialog = (state: EditorState, dispatch: Dispatch) => {
-    const node = findSelectedNodeWithType(state.schema.nodes.expert, state);
-    const onOk = (attrs) => setNodeMarkup(state.schema.nodes.expert, attrs)(state, dispatch);
+    const node = findSelectedNodeWithType(state.schema.nodes.cta, state);
+    const onOk = (attrs) => setNodeMarkup(state.schema.nodes.cta, attrs)(state, dispatch);
     const onCancel = () => { }
     this._openDialog(onOk, onCancel, { ...node?.attrs })
   }

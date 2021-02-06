@@ -9,7 +9,7 @@ declare type config = ExtensionProps & {
     openDialog: OpenDialogFn;
     attributes: string[];
 };
-export default class Expert extends Extension {
+export default class Cta extends Extension {
     name: string;
     group: string;
     showMenu: boolean;
@@ -18,14 +18,16 @@ export default class Expert extends Extension {
     constructor(props?: config);
     get schema(): import("../../types").ExtensionSchema | {
         content: string;
-        group: string;
         selectable: boolean;
+        group: string;
         parseDOM: {
             tag: string;
             getAttrs: (dom: any) => {};
         }[];
         attrs: {};
-        toDOM: (node: any) => any[];
+        toDOM: (node: any) => (string | any[] | {
+            class: string;
+        })[];
     };
     get icon(): JSX.Element;
     active(state: any): boolean;

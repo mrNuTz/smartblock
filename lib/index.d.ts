@@ -33,6 +33,7 @@ import Underline from './extensions/underline';
 import DefaultKeys from './extensions/default-keys';
 import DefaultPlugins from './extensions/default-plugins';
 import Expert from './extensions/expert';
+import Cta from './extensions/cta';
 import Extensions from './extensions';
 import 'prosemirror-view/style/prosemirror.css';
-export { SmartBlock, Button, EditMenu, Editor, InlineMenu, Menu, Extensions, Link, LinkDialogAdapter, Image, ImageDialogAdapter, ImageWithText, BulletList, CustomBlock, Heading, ListItem, MoveDown, MoveUp, OrderedList, Paragraph, Blockquote, Table, Embed, Code, Expert, Emphasis, Strike, Strong, Underline, CustomMark, Trash, getViewport, isInput, markActive, blockActive, canInsert, findNodePosition, findSelectedNodeWithType, getParentNodePosFromState, createTable, liftListItem, Dispatch, Extension, DefaultKeys, DefaultPlugins, Plugin, };
+export { SmartBlock, Button, EditMenu, Editor, InlineMenu, Menu, Extensions, Link, LinkDialogAdapter, Image, ImageDialogAdapter, ImageWithText, BulletList, CustomBlock, Heading, ListItem, MoveDown, MoveUp, OrderedList, Paragraph, Blockquote, Table, Embed, Code, Expert, Cta, Emphasis, Strike, Strong, Underline, CustomMark, Trash, getViewport, isInput, markActive, blockActive, canInsert, findNodePosition, findSelectedNodeWithType, getParentNodePosFromState, createTable, liftListItem, Dispatch, Extension, DefaultKeys, DefaultPlugins, Plugin, };

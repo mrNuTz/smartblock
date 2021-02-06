@@ -43,7 +43,7 @@ export default class LinkDialogAdapter extends Extension {
       inclusive: false,
       parseDOM: [
         {
-          tag: 'a[href]:not(.embed)',
+          tag: '*:not(.cta) > a[href]:not(.embed)',
           getAttrs: dom =>
             this._attributes.concat('editing').reduce((attrs, attr) => {
               attrs[attr] = dom.getAttribute(attr)

@@ -10,6 +10,10 @@ export default
         type: "expert"
       },
       {
+        attrs: { text: "Jetzt Online anschauen", title: "tooltip", href: "https://google.com", variant: "" },
+        type: "cta"
+      },
+      {
         "type": "image",
         "attrs": {
           "title": "foo",

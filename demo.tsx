@@ -20,6 +20,7 @@ import Blockquote from './src/extensions/blockquote';
 import Strong from './src/extensions/strong';
 import Emphasis from './src/extensions/emphasis';
 import Expert from './src/extensions/expert';
+import Cta from './src/extensions/cta';
 import Underline from './src/extensions/underline';
 import Strike from './src/extensions/strike';
 import DefaultKeys from './src/extensions/default-keys';
@@ -74,6 +75,9 @@ const openLinkDialog = getDialog('href')
 const openImageDialog = getDialog('caption')
 const openImageTextDialog = getDialog('src')
 const openExpertDialog = getDialog('name', { function: 'Haberkorn Expert für ' })
+const openCtaDialog = getDialog('text', {
+  href: 'https://google.com', title: 'tooltip', variant: 'reverse'
+})
 
 const extensions = [
   // blocks
@@ -120,6 +124,10 @@ const extensions = [
     attributes: ['name', 'userNo', 'function'],
     openDialog: openExpertDialog
   }),
+  new Cta({
+    attributes: ['text', 'title', 'href', 'variant'],
+    openDialog: openCtaDialog
+  })
 ] as Extension[]
 
 
