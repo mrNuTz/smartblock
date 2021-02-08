@@ -685,9 +685,9 @@
     font-size: 14px;
     text-decoration: none;
     letter-spacing: 0.34px; }
-  .ProseMirror .cta a.variant-arrow {
+  .ProseMirror .cta a.variant-link {
     color: #007abc; }
-    .ProseMirror .cta a.variant-arrow::before {
+    .ProseMirror .cta a.variant-link::before {
       content: "🠖";
       display: inline-block;
       font-size: 20px;

@@ -643,8 +643,6 @@
   line-height: 0;
 }
 
-.ProseMirror a {}
-
 .ProseMirror .selected {
   background-color: #F2F2F4;
   border-radius: 3px;
@@ -860,7 +858,7 @@
     letter-spacing: 0.34px;
   }
 
-  a.variant-arrow {
+  a.variant-link {
     color: #007abc;
 
     &::before {
