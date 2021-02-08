@@ -8,6 +8,12 @@ export default
           function: "Haberkorn Experte für Warnschutzkleidung",
         },
         type: "expert"
+      }, {
+        attrs: {
+          title: "Feinstaubmaske Aura, mit Ausatemventil",
+          id: 34,
+        },
+        type: "product"
       },
       {
         attrs: { text: "Jetzt Online anschauen", title: "tooltip", href: "https://google.com", variant: "" },
@@ -18,7 +24,7 @@ export default
         type: "cta"
       },
       {
-        attrs: { text: "Jetzt Online anschauen", title: "tooltip", href: "https://google.com", variant: "arrow" },
+        attrs: { text: "Jetzt Online anschauen", title: "tooltip", href: "https://google.com", variant: "link" },
         type: "cta"
       },
       {

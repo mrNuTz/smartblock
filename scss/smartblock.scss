@@ -811,28 +811,25 @@
 
 .ProseMirror .expert {
   padding: 5px;
-
-  .content {
     display: flex;
     align-items: center;
 
-    .foto {
-      border-radius: 50%;
-      width: 100px;
-      height: 100px;
-      box-shadow: 0 8px 24px 0 #eae8eb;
+  .foto {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 8px 24px 0 #eae8eb;
+  }
+  .text {
+    padding-left: 1rem;
+    .name {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: .3rem;
     }
-    .text {
-      padding-left: 1rem;
-      .name {
-        font-size: 1.3rem;
-        font-weight: bold;
-        margin-bottom: .3rem;
-      }
-      .function {
-        color: #8F9192;
-        font-size: .9rem;
-      }
+    .function {
+      color: #8F9192;
+      font-size: .9rem;
     }
   }
   @media screen and (min-width: 768px) {
@@ -885,6 +882,35 @@
     color: #007abc;
     background: transparent;
     border: 2px solid #007abc;
+  }
+}
+
+.ProseMirror .product {
+  padding: 5px;
+    display: flex;
+    align-items: center;
+
+  .foto {
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 8px 24px 0 #eae8eb;
+    flex: 0 0 100px;
+  }
+  .text {
+    padding-left: 1rem;
+    font-style: italic;
+    .title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+    .price {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+  }
+  @media screen and (min-width: 768px) {
+    padding: 5px 10px;
   }
 }
 

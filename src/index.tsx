@@ -47,6 +47,7 @@ import DefaultKeys from './extensions/default-keys'
 import DefaultPlugins from './extensions/default-plugins'
 import Expert from './extensions/expert'
 import Cta from './extensions/cta'
+import Product from './extensions/product'
 import Extensions from './extensions'
 
 import 'prosemirror-view/style/prosemirror.css'
@@ -83,6 +84,7 @@ export {
   Code,
   Expert,
   Cta,
+  Product,
   /* inline */
   Emphasis,
   Strike,

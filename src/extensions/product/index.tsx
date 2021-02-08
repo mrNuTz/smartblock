@@ -13,8 +13,8 @@ type config = ExtensionProps & {
   attributes: string[];
 }
 
-export default class Expert extends Extension {
-  name = 'expert'
+export default class Product extends Extension {
+  name = 'product'
   group = 'block'
   showMenu = true
   private _openDialog: OpenDialogFn
@@ -36,7 +36,7 @@ export default class Expert extends Extension {
       selectable: true,
       parseDOM: [
         {
-          tag: 'div.expert',
+          tag: 'div.product',
           getAttrs: dom => this._attributes.reduce((attrs, attr) => {
             attrs[attr] = dom.getAttribute(attr)
             return attrs
@@ -47,11 +47,11 @@ export default class Expert extends Extension {
         attrs[attr] = { default: '' }
         return attrs
       }, {}),
-      toDOM: node => ['div', { class: 'expert', ...node.attrs },
+      toDOM: node => ['div', { class: 'product', ...node.attrs },
         ['div', { class: 'foto' }],
         ['div', { class: 'text'},
-          ['div', { class: 'name' }, node.attrs.name || ''],
-          ['div', { class: 'function' }, node.attrs.function || '']]]
+          ['div', { class: 'title' }, node.attrs.title || 'Product'],
+          ['div', { class: 'price' }, '€ X,XX']]]
     }
   }
 
@@ -60,7 +60,7 @@ export default class Expert extends Extension {
   }
 
   active(state) {
-    return blockActive(state.schema.nodes.expert)(state);
+    return blockActive(state.schema.nodes.product)(state);
   }
 
   enable(state: EditorState) {
@@ -68,12 +68,12 @@ export default class Expert extends Extension {
     if (node.type.name !== 'paragraph' || node.content.size > 0) {
       return false;
     }
-    return setNodeMarkup(state.schema.nodes.expert, {})(state);
+    return setNodeMarkup(state.schema.nodes.product, {})(state);
   }
 
   openDialog = (state: EditorState, dispatch: Dispatch) => {
-    const node = findSelectedNodeWithType(state.schema.nodes.expert, state);
-    const onOk = (attrs) => setNodeMarkup(state.schema.nodes.expert, attrs)(state, dispatch);
+    const node = findSelectedNodeWithType(state.schema.nodes.product, state);
+    const onOk = (attrs) => setNodeMarkup(state.schema.nodes.product, attrs)(state, dispatch);
     const onCancel = () => { }
     this._openDialog(onOk, onCancel, { ...node?.attrs })
   }

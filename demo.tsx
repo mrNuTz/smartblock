@@ -21,6 +21,7 @@ import Strong from './src/extensions/strong';
 import Emphasis from './src/extensions/emphasis';
 import Expert from './src/extensions/expert';
 import Cta from './src/extensions/cta';
+import Product from './src/extensions/product';
 import Underline from './src/extensions/underline';
 import Strike from './src/extensions/strike';
 import DefaultKeys from './src/extensions/default-keys';
@@ -75,6 +76,7 @@ const openLinkDialog = getDialog('href')
 const openImageDialog = getDialog('caption')
 const openImageTextDialog = getDialog('src')
 const openExpertDialog = getDialog('name', { function: 'Haberkorn Expert für ' })
+const openProductDialog = getDialog('title')
 const openCtaDialog = getDialog('text', {
   href: 'https://google.com', title: 'tooltip', variant: 'reverse'
 })
@@ -127,7 +129,11 @@ const extensions = [
   new Cta({
     attributes: ['text', 'title', 'href', 'variant'],
     openDialog: openCtaDialog
-  })
+  }),
+  new Product({
+    attributes: ['id', 'title'],
+    openDialog: openProductDialog
+  }),
 ] as Extension[]
 
 

@@ -648,24 +648,23 @@
   clear: both; }
 
 .ProseMirror .expert {
-  padding: 5px; }
-  .ProseMirror .expert .content {
-    display: flex;
-    align-items: center; }
-    .ProseMirror .expert .content .foto {
-      border-radius: 50%;
-      width: 100px;
-      height: 100px;
-      box-shadow: 0 8px 24px 0 #eae8eb; }
-    .ProseMirror .expert .content .text {
-      padding-left: 1rem; }
-      .ProseMirror .expert .content .text .name {
-        font-size: 1.3rem;
-        font-weight: bold;
-        margin-bottom: .3rem; }
-      .ProseMirror .expert .content .text .function {
-        color: #8F9192;
-        font-size: .9rem; }
+  padding: 5px;
+  display: flex;
+  align-items: center; }
+  .ProseMirror .expert .foto {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 8px 24px 0 #eae8eb; }
+  .ProseMirror .expert .text {
+    padding-left: 1rem; }
+    .ProseMirror .expert .text .name {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: .3rem; }
+    .ProseMirror .expert .text .function {
+      color: #8F9192;
+      font-size: .9rem; }
   @media screen and (min-width: 768px) {
     .ProseMirror .expert {
       padding: 5px 10px; } }
@@ -707,6 +706,29 @@
     color: #007abc;
     background: transparent;
     border: 2px solid #007abc; }
+
+.ProseMirror .product {
+  padding: 5px;
+  display: flex;
+  align-items: center; }
+  .ProseMirror .product .foto {
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 8px 24px 0 #eae8eb;
+    flex: 0 0 100px; }
+  .ProseMirror .product .text {
+    padding-left: 1rem;
+    font-style: italic; }
+    .ProseMirror .product .text .title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 2rem; }
+    .ProseMirror .product .text .price {
+      font-size: 1.25rem;
+      font-weight: bold; }
+  @media screen and (min-width: 768px) {
+    .ProseMirror .product {
+      padding: 5px 10px; } }
 
 /* a11y-dark theme */
 /* Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css */
