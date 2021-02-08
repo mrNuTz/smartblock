@@ -375,11 +375,11 @@
   text-align: center;
   padding: 10px 5px;
   margin: 0;
-  pointer-events: none;
   color: transparent; }
   .ProseMirror figure .img-container {
     position: relative; }
     .ProseMirror figure .img-container img {
+      pointer-events: none;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
@@ -678,26 +678,35 @@
   .ProseMirror .cta a {
     pointer-events: none;
     display: inline-block;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    letter-spacing: 0.34px; }
+  .ProseMirror .cta a.variant-arrow {
+    color: #007abc; }
+    .ProseMirror .cta a.variant-arrow::before {
+      content: "🠖";
+      display: inline-block;
+      font-size: 20px;
+      transform: scaleY(1.7) translateY(1px);
+      margin: -5px 7px -5px 0; }
+  .ProseMirror .cta a.variant-primary, .ProseMirror .cta a.variant-secondary {
     height: 50px;
     line-height: 50px;
     padding: 0 20px;
-    background: linear-gradient(45deg, #006DAB 0%, #007abc 51.06%, #5BAFE6 100%);
+    border-radius: 3px;
+    box-shadow: none; }
+  .ProseMirror .cta a.variant-primary {
     color: #fff;
     border: none;
-    border-radius: 3px;
-    box-shadow: none;
-    font-weight: bold;
-    font-size: 14px;
-    text-transform: uppercase;
-    text-decoration: none;
-    letter-spacing: 0.34px;
-    max-width: 100%;
-    text-overflow: ellipsis;
-    overflow: hidden; }
-    .ProseMirror .cta a.variant-reverse {
-      background: transparent;
-      color: #007abc;
-      border: 2px solid #007abc; }
+    background: linear-gradient(45deg, #006DAB 0%, #007abc 51.06%, #5BAFE6 100%); }
+  .ProseMirror .cta a.variant-secondary {
+    color: #007abc;
+    background: transparent;
+    border: 2px solid #007abc; }
 
 /* a11y-dark theme */
 /* Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css */

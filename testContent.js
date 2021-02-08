@@ -14,6 +14,14 @@ export default
         type: "cta"
       },
       {
+        attrs: { text: "Jetzt Online anschauen", title: "tooltip", href: "https://google.com", variant: "secondary" },
+        type: "cta"
+      },
+      {
+        attrs: { text: "Jetzt Online anschauen", title: "tooltip", href: "https://google.com", variant: "arrow" },
+        type: "cta"
+      },
+      {
         "type": "image",
         "attrs": {
           "title": "foo",

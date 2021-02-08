@@ -21,7 +21,6 @@ export default class ImageDialogAdapter extends Extension {
   name = 'image'
   showMenu = true
   group = 'block'
-  hideBlockMenuOnFocus = true
   private _openDialog: OpenDialogFn
   private _attributes: string[]
   private _previewSrcFromAttrs: (attrs: Attributes) => string
@@ -37,8 +36,7 @@ export default class ImageDialogAdapter extends Extension {
 
   get schema() {
     return {
-      content: 'inline*',
-      isolating: true,
+      content: 'text*',
       group: 'block',
       selectable: true,
       attrs: this._attributes.reduce((attrs, attr) => {
@@ -65,7 +63,6 @@ export default class ImageDialogAdapter extends Extension {
             { class: 'img-container', style: `padding-bottom: ${100 / this._aspectRatio}%;` },
             ['img', { ...attrs, src, _src }]
           ] : ['img', { ...attrs, src, _src }],
-          ['div', { class: 'hole' }, 0],
           attrs.caption ? ['figcaption', { class: 'caption' }, attrs.caption] : ['div'],
         ];
       }

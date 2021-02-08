@@ -463,12 +463,12 @@
   text-align: center;
   padding: 10px 5px;
   margin: 0;
-  pointer-events: none;
   color: transparent;
 
   .img-container {
     position: relative;
     img {
+      pointer-events: none;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
@@ -847,33 +847,46 @@
   @media screen and (min-width: 768px) {
     padding: 5px 10px;
   }
+
   a {
     pointer-events: none;
     display: inline-block;
-    height: 50px;
-    line-height: 50px;
-    padding: 0 20px;
-    background: linear-gradient(45deg, #006DAB 0%, #007abc 51.06%, #5BAFE6 100%);
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    box-shadow: none;
-
-    font-weight: bold;
-    font-size: 14px;
-    text-transform: uppercase;
-    text-decoration: none;
-    letter-spacing: 0.34px;
-
     max-width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    letter-spacing: 0.34px;
+  }
 
-    &.variant-reverse {
-      background: transparent;
-      color: #007abc;
-      border: 2px solid #007abc;
+  a.variant-arrow {
+    color: #007abc;
+
+    &::before {
+      content: "🠖";
+      display: inline-block;
+      font-size: 20px;
+      transform: scaleY(1.7) translateY(1px);
+      margin: -5px 7px -5px 0;
     }
+  }
+  a.variant-primary, a.variant-secondary {
+    height: 50px;
+    line-height: 50px;
+    padding: 0 20px;
+    border-radius: 3px;
+    box-shadow: none;
+  }
+  a.variant-primary {
+    color: #fff;
+    border: none;
+    background: linear-gradient(45deg, #006DAB 0%, #007abc 51.06%, #5BAFE6 100%);
+  }
+  a.variant-secondary {
+    color: #007abc;
+    background: transparent;
+    border: 2px solid #007abc;
   }
 }
 

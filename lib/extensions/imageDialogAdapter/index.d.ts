@@ -15,7 +15,6 @@ export default class ImageDialogAdapter extends Extension {
     name: string;
     showMenu: boolean;
     group: string;
-    hideBlockMenuOnFocus: boolean;
     private _openDialog;
     private _attributes;
     private _previewSrcFromAttrs;
@@ -23,7 +22,6 @@ export default class ImageDialogAdapter extends Extension {
     constructor({ openDialog, attributes, previewSrcFromAttrs, aspectRatio, ...props }: Props);
     get schema(): {
         content: string;
-        isolating: boolean;
         group: string;
         selectable: boolean;
         attrs: {};

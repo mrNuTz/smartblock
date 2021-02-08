@@ -56,10 +56,9 @@ export default class Cta extends Extension {
             {
               role: 'button',
               ...node.attrs,
-              class: `${(node.attrs.class || '')} ${node.attrs.variant ? 'variant-' + node.attrs.variant : ''}`
+              class: `${(node.attrs.class || '')} variant-${node.attrs.variant || 'primary'}`
             },
-            ['span', { class: 'text' }, node.attrs.text || '']],
-        ]
+            node.attrs.text || '']]
     }
   }
 
