@@ -3,7 +3,7 @@ import { EditorView } from 'prosemirror-view';
 import { Schema, Node, DOMParser } from 'prosemirror-model';
 import { keymap } from 'prosemirror-keymap';
 import { chainCommands } from 'prosemirror-commands';
-import scrollTo from 'scroll-to';
+import * as scrollTo from 'scroll-to';
 import { EditorState } from 'prosemirror-state';
 import classNames from 'classnames';
 import * as uuid from 'uuid/v4'
