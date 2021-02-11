@@ -125,10 +125,13 @@ export default (props: PositionProps) => {
     top: 0
   });
 
-  useEffect(() => void setTimeout(() => {
-    const nextStyle = calculateStyle(props);
-    setState(nextStyle);
-  }), [props]);
+  useEffect(() => {
+    const id = setTimeout(() => {
+      const nextStyle = calculateStyle(props);
+      setState(nextStyle);
+    })
+    return () => clearTimeout(id)
+  }, [props]);
 
   if (!shouldRender) {
     return null;
