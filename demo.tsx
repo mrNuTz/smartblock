@@ -22,6 +22,7 @@ import Emphasis from './src/extensions/emphasis';
 import Expert from './src/extensions/expert';
 import Cta from './src/extensions/cta';
 import Product from './src/extensions/product';
+import HorizontalRule from './src/extensions/horizontal-rule';
 import Underline from './src/extensions/underline';
 import Strike from './src/extensions/strike';
 import DefaultKeys from './src/extensions/default-keys';
@@ -92,6 +93,7 @@ const extensions = [
   // new Code(),
   new Table(),
   new Blockquote(),
+  new HorizontalRule(),
   // marks
   new Strong(),
   new Emphasis(),

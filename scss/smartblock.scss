@@ -887,8 +887,8 @@
 
 .ProseMirror .product {
   padding: 5px;
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
   .foto {
     width: 100px;
@@ -911,6 +911,14 @@
   }
   @media screen and (min-width: 768px) {
     padding: 5px 10px;
+  }
+}
+
+.ProseMirror hr {
+  padding: 17.5px 5px;
+  font-size: 0;
+  @media screen and (min-width: 768px) {
+    padding: 17.5px 10px;
   }
 }
 

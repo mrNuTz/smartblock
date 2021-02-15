@@ -730,6 +730,13 @@
     .ProseMirror .product {
       padding: 5px 10px; } }
 
+.ProseMirror hr {
+  padding: 17.5px 5px;
+  font-size: 0; }
+  @media screen and (min-width: 768px) {
+    .ProseMirror hr {
+      padding: 17.5px 10px; } }
+
 /* a11y-dark theme */
 /* Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css */
 /* @author: ericwbailey */
