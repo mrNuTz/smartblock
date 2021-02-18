@@ -3,6 +3,7 @@ import EditIcon from '../image/edit-icon';
 import Icon from './icon'
 import { Extension, ExtensionProps, Dispatch } from '../../types'
 import { EditorState } from 'prosemirror-state';
+import { Fragment } from 'prosemirror-model';
 import { blockActive, findSelectedNodeWithType, setNodeMarkup, getParentNodeFromState } from '../../utils';
 import Button from '../../components/button';
 
@@ -43,7 +44,8 @@ export default class Cta extends Extension {
               attrs[attr] = a.getAttribute(attr)
               return attrs
             }, {})
-          }
+          },
+          getContent: () => Fragment.empty
         }
       ],
       attrs: this._attributes.reduce((attrs, attr) => {

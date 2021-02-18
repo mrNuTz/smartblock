@@ -1,6 +1,7 @@
 /// <reference types="react" />
 import { Extension, ExtensionProps, Dispatch } from '../../types';
 import { EditorState } from 'prosemirror-state';
+import { Fragment } from 'prosemirror-model';
 export declare type Attributes = {
     [attr: string]: string;
 };
@@ -23,6 +24,7 @@ export default class Product extends Extension {
         parseDOM: {
             tag: string;
             getAttrs: (dom: any) => {};
+            getContent: () => Fragment<any>;
         }[];
         attrs: {};
         toDOM: (node: any) => any[];

@@ -1,6 +1,7 @@
 /// <reference types="react" />
 import { Extension, Dispatch } from '../../types';
 import { EditorState } from 'prosemirror-state';
+import { Fragment } from 'prosemirror-model';
 export declare type Attributes = {
     [attr: string]: string;
 };
@@ -28,6 +29,7 @@ export default class ImageDialogAdapter extends Extension {
         parseDOM: {
             tag: string;
             getAttrs: (dom: any) => {};
+            getContent: () => Fragment<any>;
         }[];
         toDOM: (node: any) => (string | any[] | {
             class: string;

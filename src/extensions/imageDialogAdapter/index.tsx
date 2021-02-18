@@ -7,6 +7,7 @@ import { setBlockType } from 'prosemirror-commands';
 import { EditorState } from 'prosemirror-state';
 import { MediaPlugin } from '../image/plugins';
 import Button from '../../components/button';
+import { Fragment } from 'prosemirror-model';
 
 export type Attributes = { [attr: string]: string }
 export type OpenDialogFn = (onOK: (attrs: Attributes) => void, onCancel: () => void, attrs: Attributes) => void
@@ -53,7 +54,8 @@ export default class ImageDialogAdapter extends Extension {
             if (a) attrs[attr === '_src' ? 'src' : attr] = a
             return attrs
           }, {}) : {}
-        }
+        },
+        getContent: () => Fragment.empty
       }],
       toDOM: (node) => {
         const src = this._previewSrcFromAttrs(node.attrs)
