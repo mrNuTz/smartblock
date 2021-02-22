@@ -16,15 +16,15 @@ export default
         type: "product"
       },
       {
-        attrs: { text: "Jetzt Online anschauen", title: "tooltip", href: "https://google.com", variant: "" },
+        attrs: { text: "Jetzt Online anschauen", title: "tooltip", href: "https://google.com", variant: "", class: "test" },
         type: "cta"
       },
       {
-        attrs: { text: "Jetzt Online anschauen", title: "tooltip", href: "https://google.com", variant: "secondary" },
+        attrs: { text: "Jetzt Online anschauen", title: "tooltip", href: "https://google.com", variant: "secondary", class: "test" },
         type: "cta"
       },
       {
-        attrs: { text: "Jetzt Online anschauen", title: "tooltip", href: "https://google.com", variant: "link" },
+        attrs: { text: "Jetzt Online anschauen", title: "tooltip", href: "https://google.com", variant: "link", class: "test" },
         type: "cta"
       },
       {

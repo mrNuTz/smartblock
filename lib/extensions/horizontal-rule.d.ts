@@ -1,6 +1,7 @@
 /// <reference types="react" />
 import { Extension, ExtensionProps } from '../types';
 import { EditorState } from 'prosemirror-state';
+import { Fragment } from 'prosemirror-model';
 export default class HorizontalRule extends Extension {
     name: string;
     group: string;
@@ -12,6 +13,8 @@ export default class HorizontalRule extends Extension {
         selectable: boolean;
         parseDOM: {
             tag: string;
+            getAttrs: () => {};
+            getContent: () => Fragment<any>;
         }[];
         toDOM: () => string[];
     };

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Extension, ExtensionProps } from '../types'
 import { EditorState } from 'prosemirror-state';
 import { blockActive, setNodeMarkup, getParentNodeFromState } from '../utils';
+import { Fragment } from 'prosemirror-model';
 
 export default class HorizontalRule extends Extension {
   name = 'horizontal_rule'
@@ -20,7 +21,11 @@ export default class HorizontalRule extends Extension {
       content: 'text*',
       group: 'block',
       selectable: true,
-      parseDOM: [{ tag: 'hr' }],
+      parseDOM: [{
+        tag: 'hr',
+        getAttrs: () => ({}),
+        getContent: () => Fragment.empty,
+      }],
       toDOM: () => ['hr', 'foo']
     }
   }

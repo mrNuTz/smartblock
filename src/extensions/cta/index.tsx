@@ -40,8 +40,10 @@ export default class Cta extends Extension {
           tag: 'div.cta',
           getAttrs: dom => {
             const a = dom.querySelector('a')
-            return !a ? {} : this._attributes.reduce((attrs, attr) => {
-              attrs[attr] = a.getAttribute(attr)
+            return !a ? {} : this._attributes.concat('_class').reduce((attrs, attr) => {
+              if (attr === 'class') return attrs
+              const val = a.getAttribute(attr);
+              if (val) attrs[attr === '_class' ? 'class' : attr] = val;
               return attrs
             }, {})
           },
@@ -52,15 +54,14 @@ export default class Cta extends Extension {
         attrs[attr] = { default: '' }
         return attrs
       }, {}),
-      toDOM: node =>
-        ['div', { class: 'cta' },
+      toDOM: node => {
+        const { class: _class, ...attrs } = node.attrs
+
+        return ['div', { class: 'cta' },
           ['a',
-            {
-              role: 'button',
-              ...node.attrs,
-              class: `${(node.attrs.class || '')} variant-${node.attrs.variant || 'primary'}`
-            },
+            { role: 'button', ...attrs, _class, class: `${_class || ''} variant-${node.attrs.variant || 'primary'}` },
             node.attrs.text || '']]
+      }
     }
   }
 

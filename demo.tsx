@@ -129,7 +129,7 @@ const extensions = [
     openDialog: openExpertDialog
   }),
   new Cta({
-    attributes: ['text', 'title', 'href', 'variant'],
+    attributes: ['text', 'title', 'href', 'variant', 'class'],
     openDialog: openCtaDialog
   }),
   new Product({
