@@ -27,13 +27,8 @@ export default class Strong extends Extension {
     }
     return {
       group: 'mark',
-      parseDOM: [{ tag: 'strong' }, { style: 'font-weight=bold' }],
-      toDOM: () => [
-        'strong',
-        {
-          style: 'font-weight:bold'
-        }
-      ]
+      parseDOM: [{ tag: 'strong' }],
+      toDOM: () => ['strong']
     }
   }
 
