@@ -4,12 +4,14 @@ import { EditorView } from 'prosemirror-view';
 import { getOffset, getParentNodeFromState } from '../utils';
 import Button from './button';
 import { Extension } from '..';
+import * as common from '../common'
 
 const { useState, useEffect } = React;
 
 interface PositionProps {
   view: EditorView;
   menu: Extension[];
+  inlineMenu: Extension[];
 }
 
 const calculateStyle = (props: PositionProps): React.CSSProperties => {
@@ -94,7 +96,11 @@ const getActiveMenu = (props: PositionProps) => {
 }
 
 const shouldRenderMenu = (props: PositionProps) => {
-  const { menu, view } = props;
+  const { menu, view, inlineMenu } = props;
+  const { state } = view
+  if (common.isInlineMenuVisible(state, inlineMenu)) {
+    return false;
+  }
   const node = getParentNodeFromState(view.state);
   if (!node || !menu || !menu.length) {
     return;

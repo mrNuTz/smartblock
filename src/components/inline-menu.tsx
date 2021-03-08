@@ -2,6 +2,7 @@ import * as React from 'react';
 import { EditorView } from 'prosemirror-view';
 import { getOffset, getScrollTop } from '../utils';
 import Button from './button';
+import * as common from '../common'
 
 interface PositionProps {
   view: EditorView;
@@ -80,13 +81,12 @@ const MenuBar = ({
   view: EditorView;
 }) => {
   const { state, dispatch } = view
-  const { selection } = view.state
   const container = useRef<HTMLDivElement>(null)
   const pos = calculatePos(view, container)
   const arrowPos = calculateArrowPos(view, container)
   const inlineMenu = getActiveInlineMenu({ blockMenu, view });
 
-  const hide = (!selection || selection.empty || menu.length === 0);
+  const hide = !common.isInlineMenuVisible(state, menu)
   const style = {
     zIndex: hide ? -10 : null,
     opacity: hide ? 0 : null,

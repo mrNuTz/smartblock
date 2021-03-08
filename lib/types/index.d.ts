@@ -63,6 +63,7 @@ export declare abstract class Extension {
     hideMenuOnFocus?: boolean;
     hideBlockMenuOnFocus?: boolean;
     hideInlineMenuOnFocus?: boolean;
+    showInlineMenuOnCaret?: boolean;
     group?: string;
     view?(node: Node, view: EditorView, getPos: () => number): NodeView;
     active?(state: EditorState): boolean;

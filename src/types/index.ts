@@ -84,6 +84,8 @@ export abstract class Extension {
 
   hideInlineMenuOnFocus?: boolean
 
+  showInlineMenuOnCaret?: boolean
+
   group?: string
 
   // "edit" | "mark" | "block"

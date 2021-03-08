@@ -49,6 +49,7 @@ import Expert from './extensions/expert'
 import Cta from './extensions/cta'
 import Product from './extensions/product'
 import HorizontalRule from './extensions/horizontal-rule'
+import Sup from './extensions/sup'
 import Extensions from './extensions'
 
 import 'prosemirror-view/style/prosemirror.css'
@@ -87,6 +88,7 @@ export {
   Cta,
   Product,
   HorizontalRule,
+  Sup,
   /* inline */
   Emphasis,
   Strike,

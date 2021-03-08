@@ -396,15 +396,16 @@ export default (props: AppProps) => {
                 if (scrolling) {
                   setShowMenus(false);
                 }
+                const inlineMenu = getMenu(marks);
                 return (<>
                   <div
                     className="smartblock-menus-container"
                     style={{ display: showMenus ? null : 'none' }}
                   >
-                    <Menu view={view} menu={getMenu(blocks)} />
+                    <Menu view={view} menu={getMenu(blocks)} inlineMenu={inlineMenu}/>
                     <EditMenu view={view} menu={getMenu(edits)} />
                     {shouldRenderInlineMenu(view, blocks) &&
-                      <InlineMenu menu={getMenu(marks)} blockMenu={getMenu(blocks)} view={view} />}
+                      <InlineMenu menu={inlineMenu} blockMenu={getMenu(blocks)} view={view} />}
                     <CustomLayout view={view} menu={getMenu(blocks)} />
                     {showBackBtn && <BackBtn view={view} />}
                     <PluginToolbarContainer />

@@ -23,6 +23,7 @@ import Expert from './src/extensions/expert';
 import Cta from './src/extensions/cta';
 import Product from './src/extensions/product';
 import HorizontalRule from './src/extensions/horizontal-rule';
+import Sup from './src/extensions/sup';
 import Underline from './src/extensions/underline';
 import Strike from './src/extensions/strike';
 import DefaultKeys from './src/extensions/default-keys';
@@ -136,6 +137,7 @@ const extensions = [
     attributes: ['id', 'title'],
     openDialog: openProductDialog
   }),
+  new Sup()
 ] as Extension[]
 
 
